@@ -36,7 +36,7 @@ public class SteamVR_Settings : EditorWindow
 #endif
 
 	const BuildTarget recommended_BuildTarget = BuildTarget.StandaloneWindows64;
-	const bool recommended_ShowUnitySplashScreen = false;
+	const bool recommended_ShowUnitySplashScreen = true;
 	const bool recommended_DefaultIsFullScreen = false;
 	const int recommended_DefaultScreenWidth = 1024;
 	const int recommended_DefaultScreenHeight = 768;
