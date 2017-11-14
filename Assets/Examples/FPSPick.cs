@@ -12,14 +12,19 @@ public class FPSPick : MonoBehaviour {
     private float distance = 0f;
 
     void Start()
-    {        
+    {
+        GameObject leftHand = GameObject.Find("Hand1");
+        GameObject rightHand = GameObject.Find("Hand2");
+        Rigidbody lBody = leftHand.AddComponent<Rigidbody>();
+        lBody.useGravity = false;
+        Rigidbody rBody = rightHand.AddComponent<Rigidbody>();
+        rBody.useGravity = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
         GameObject leftHand = GameObject.Find("Hand1");
         GameObject rightHand = GameObject.Find("Hand2");
-        //Rigidbody gameObjectsRigidBody = leftHand.AddComponent<Rigidbody>();
 
         if (ViveInput.GetPress(HandRole.LeftHand, ControllerButton.Trigger))
         {
@@ -28,7 +33,7 @@ public class FPSPick : MonoBehaviour {
                 leftHand.transform.position,
                 leftHand.transform.forward,
                 out hitinfo,
-                0.05f,
+                0.1f,
                 LayerMask.GetMask("Grabbable")
                ))
             {
@@ -104,7 +109,7 @@ public class FPSPick : MonoBehaviour {
                 ThrowObject(rightHand);
             }
             
-            dragging = null;
+            
         }
     }
 
@@ -118,5 +123,6 @@ public class FPSPick : MonoBehaviour {
         var controllerRb = hand.GetComponent<Rigidbody>();
         rb.velocity = controllerRb.velocity;
         rb.angularVelocity = controllerRb.angularVelocity;
+        dragging = null;
     }
 }
