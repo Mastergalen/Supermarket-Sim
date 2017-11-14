@@ -11,25 +11,60 @@ public class FPSPick : MonoBehaviour {
     private GameObject dragging = null;
     private float distance = 0f;
 
-	void FixedUpdate () {
-        //controller = SteamVR_Controller.Input((int)trackedObj.index);
-	}
-
     void Start()
-    {
-        //trackedObj = GetComponent<SteamVR_TrackedObject>();
-        //Debug.Log(trackedObj);
+    {        
     }
 	
 	// Update is called once per frame
 	void Update () {
-        var leftHand = GameObject.Find("Hand1");
-        var rightHand = GameObject.Find("Hand2");
+        GameObject leftHand = GameObject.Find("Hand1");
+        GameObject rightHand = GameObject.Find("Hand2");
+        //Rigidbody gameObjectsRigidBody = leftHand.AddComponent<Rigidbody>();
 
-        var camera = GetComponentInChildren<Camera>();
+        if (ViveInput.GetPress(HandRole.LeftHand, ControllerButton.Trigger))
+        {
+            RaycastHit hitinfo;
+            if (Physics.Raycast(
+                leftHand.transform.position,
+                leftHand.transform.forward,
+                out hitinfo,
+                0.05f,
+                LayerMask.GetMask("Grabbable")
+               ))
+            {
+                dragging = hitinfo.transform.gameObject;
+                distance = hitinfo.distance;
+                Debug.LogFormat("Colliding %f", distance);
+            }
 
-        Debug.DrawRay(rightHand.transform.position, rightHand.transform.forward, Color.green);
-        if (ViveInput.GetPressDown(HandRole.RightHand, ControllerButton.Trigger))
+            /*
+            if (Physics.Raycast(ray, out hitinfo, 10000000, LayerMask.GetMask("Grabbable")))
+            {
+                dragging = hitinfo.transform.gameObject;
+                distance = hitinfo.distance;
+            }
+             * */
+        }
+
+        if (ViveInput.GetPress(HandRole.LeftHand, ControllerButton.Trigger))
+        {
+            if (dragging != null)
+            {
+                dragging.transform.position = leftHand.transform.position;
+            }
+        }
+
+        if (ViveInput.GetPressUp(HandRole.LeftHand, ControllerButton.Trigger))
+        {
+            if (dragging != null)
+            {
+                ThrowObject(leftHand);
+            }
+            
+            dragging = null;
+        }
+
+         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
         {
             RaycastHit hitinfo;
             if (Physics.Raycast(
@@ -56,16 +91,32 @@ public class FPSPick : MonoBehaviour {
 
         if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
         {
-            Debug.DrawLine(rightHand.transform.position, (rightHand.transform.forward * 100) + rightHand.transform.position, Color.red);
             if (dragging != null)
             {
                 dragging.transform.position = rightHand.transform.position;
             }
         }
 
-        if (!ViveInput.GetPress(HandRole.RightHand, ControllerButton.Trigger))
+        if (ViveInput.GetPressUp(HandRole.RightHand, ControllerButton.Trigger))
         {
+            if (dragging != null)
+            {
+                ThrowObject(rightHand);
+            }
+            
             dragging = null;
         }
+    }
+
+
+
+    void ThrowObject(GameObject hand)
+    {
+        Rigidbody rb = dragging.GetComponent<Rigidbody>();
+
+        var origin = hand.transform.position;
+        var controllerRb = hand.GetComponent<Rigidbody>();
+        rb.velocity = controllerRb.velocity;
+        rb.angularVelocity = controllerRb.angularVelocity;
     }
 }
