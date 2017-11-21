@@ -3,36 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Pickup : MonoBehaviour {
-    private SteamVR_TrackedObject trackedObj;
-    private SteamVR_Controller.Device controller
-    {
-        get { return SteamVR_Controller.Input((int) trackedObj.index); }
-    }
+    private Valve.VR.InteractionSystem.Hand hand;
     private GameObject objectInHand;
-
-	// Use this for initialization
+    
 	void Start () {
-        if (this.GetComponent<SteamVR_TrackedObject>() == null) {
-            gameObject.AddComponent<SteamVR_TrackedObject>();
-        }
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
-        Debug.Log("tracked start");
-        Debug.Log(trackedObj);
-	}
-
-    void Awake() {
-        //trackedObj = GetComponent<SteamVR_TrackedObject>();
-        //Debug.Log("tracked");
-        //Debug.Log(trackedObj);
+        hand = gameObject.GetComponent<Valve.VR.InteractionSystem.Hand>();
     }
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
 	void Update () {
-        if (controller.GetHairTriggerDown())
+        if (hand.controller == null) return;
+
+        if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
             RaycastHit hitinfo;       
             if (Physics.Raycast(
-                controller.transform.pos,
+                gameObject.transform.position,
                 gameObject.transform.forward,
                 out hitinfo,
                 0.1f,
@@ -45,7 +31,7 @@ public class Pickup : MonoBehaviour {
             }
         }
 
-        if (controller.GetHairTrigger())
+        if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
         {
             if (objectInHand != null)
             {
@@ -53,7 +39,7 @@ public class Pickup : MonoBehaviour {
             }
         }
 
-        if (controller.GetHairTriggerUp())
+        if (hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
         {
             if (objectInHand != null)
             {
@@ -64,11 +50,12 @@ public class Pickup : MonoBehaviour {
 
     void ReleaseObject()
     {
+        Debug.Log("Releasing object");
         Rigidbody rb = objectInHand.GetComponent<Rigidbody>();
 
-        var origin = controller.transform.pos;
-        rb.velocity = controller.velocity;
-        rb.angularVelocity = controller.angularVelocity;
+        var origin = gameObject.transform.position;
+        rb.velocity = hand.controller.velocity;
+        rb.angularVelocity = hand.controller.angularVelocity;
         objectInHand = null;
     }
 }
