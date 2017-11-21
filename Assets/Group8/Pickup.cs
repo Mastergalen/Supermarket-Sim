@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pickup : MonoBehaviour {
     private Valve.VR.InteractionSystem.Hand hand;
     private GameObject objectInHand;
+    private FixedJoint joint;
     
 	void Start () {
         hand = gameObject.GetComponent<Valve.VR.InteractionSystem.Hand>();
@@ -16,18 +17,16 @@ public class Pickup : MonoBehaviour {
 
         if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            RaycastHit hitinfo;       
+            RaycastHit hitInfo;       
             if (Physics.Raycast(
                 gameObject.transform.position,
                 gameObject.transform.forward,
-                out hitinfo,
+                out hitInfo,
                 0.1f,
                 LayerMask.GetMask("Grabbable")
                ))
             {
-                objectInHand = hitinfo.transform.gameObject;
-                var distance = hitinfo.distance;
-                Debug.LogFormat("Colliding %f", distance);
+                Grab(hitInfo);
             }
         }
 
@@ -48,6 +47,18 @@ public class Pickup : MonoBehaviour {
         }
 	}
 
+    void Grab(RaycastHit hitInfo) {
+        objectInHand = hitInfo.transform.gameObject;
+        var distance = hitInfo.distance;
+        Debug.LogFormat("Colliding %f", distance);
+
+        joint = gameObject.AddComponent<FixedJoint>();
+        joint.breakForce = 20000;
+        joint.breakTorque = 20000;
+
+        joint.connectedBody = hitInfo.transform.gameObject.GetComponent<Rigidbody>();        
+    }
+
     void ReleaseObject()
     {
         Debug.Log("Releasing object");
@@ -56,6 +67,14 @@ public class Pickup : MonoBehaviour {
         var origin = gameObject.transform.position;
         rb.velocity = hand.controller.velocity;
         rb.angularVelocity = hand.controller.angularVelocity;
+        
         objectInHand = null;
+        if (joint != null)
+        {
+            joint.connectedBody = null;
+            Destroy(joint);
+            joint = null;
+        }
+        //FIXME: Velocity wrong way round
     }
 }
