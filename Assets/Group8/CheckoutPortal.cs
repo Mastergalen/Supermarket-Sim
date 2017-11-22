@@ -25,7 +25,7 @@ public class CheckoutPortal : MonoBehaviour {
 
         Debug.Log("Start Portal collision");
 
-        // Check if it belongs to a FixedJoint
+        // TODO: Check if it belongs to a FixedJoint
         Debug.Log("Has fixed joint?");
         Debug.Log(c.gameObject.GetComponent<FixedJoint>());
         Teleport(c.gameObject);
