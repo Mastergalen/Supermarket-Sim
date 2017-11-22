@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/TutorialScene/TutorialRoom.unity
+    guid: 1b182a7c823dcc1419fa0d1d60e412fd
