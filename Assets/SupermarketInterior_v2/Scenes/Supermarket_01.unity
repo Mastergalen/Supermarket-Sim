@@ -529,6 +529,14 @@ Prefab:
       propertyPath: m_SelectedEditorRenderState
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: ced83114606eb9a4e97e359c6fc8a8bf, type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: ced83114606eb9a4e97e359c6fc8a8bf, type: 2}
+      propertyPath: randomSeed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ced83114606eb9a4e97e359c6fc8a8bf, type: 2}
   m_IsPrefabParent: 0
@@ -548,6 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vrCamera: {fileID: 256693933}
+  heightOffset: 0.5
 --- !u!1001 &832165563
 Prefab:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class RingFollower : MonoBehaviour {
 
     public GameObject vrCamera;
+    public float heightOffset = 0.5f;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +16,7 @@ public class RingFollower : MonoBehaviour {
 	void Update () {
         var newPosition = vrCamera.transform.position;
 
-        newPosition.y -= 0.3f;
+        newPosition.y -= heightOffset;
         gameObject.transform.position = newPosition;
 
 	}
