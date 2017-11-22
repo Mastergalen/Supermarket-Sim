@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckoutPortal : MonoBehaviour {
     public GameObject targetPortal;
+    private float releaseCooldown = 0.5f;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +16,7 @@ public class CheckoutPortal : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter(Collider c)
+    private void OnTriggerStay(Collider c)
     {
         if (!c.GetComponent<Rigidbody>()) return;
 
@@ -23,12 +24,17 @@ public class CheckoutPortal : MonoBehaviour {
 
         if (layer != LayerMask.NameToLayer("Grabbable")) return;
 
-        Debug.Log("Start Portal collision");
+        FixedJointConnection connection = c.gameObject.GetComponent<FixedJointConnection>();
 
-        // TODO: Check if it belongs to a FixedJoint
-        Debug.Log("Has fixed joint?");
-        Debug.Log(c.gameObject.GetComponent<FixedJoint>());
-        Teleport(c.gameObject);
+        // Check if player is dropping the item in
+        if (connection)
+        {
+            if((Time.time - connection.timeReleased) < releaseCooldown)
+            {
+                Teleport(c.gameObject);
+            }
+        }
+        
     }
 
     private void Teleport(GameObject collidingObject)
