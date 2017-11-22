@@ -70,7 +70,10 @@ public class Pickup : MonoBehaviour {
         joint.breakForce = 20000;
         joint.breakTorque = 20000;
 
-        joint.connectedBody = objectToGrab.GetComponent<Rigidbody>();        
+        joint.connectedBody = objectInHand.GetComponent<Rigidbody>();
+
+        FixedJointConnection anchor = objectInHand.AddComponent<FixedJointConnection>();
+        anchor.joint = joint;
     }
 
     void ReleaseObject()
@@ -81,9 +84,13 @@ public class Pickup : MonoBehaviour {
 
         rbObject.velocity = hand.controller.velocity;
         rbObject.angularVelocity = hand.controller.angularVelocity;
-        
+
+
         if (joint != null)
         {
+            FixedJointConnection anchor = objectInHand.GetComponent<FixedJointConnection>();
+            anchor.joint = null;
+            anchor.timeReleased = Time.time;
             joint.connectedBody = null;
             Destroy(joint);
         }
