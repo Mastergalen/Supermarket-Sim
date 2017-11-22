@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GoToSupermarket : MonoBehaviour {
+public class GoToSupermarket : MonoBehaviour
+{
 
     private void OnTriggerEnter(Collider collisionInfo)
     {
-        // TODO: Check it's only "HeadCollider"
-        Debug.Log("Detected collision between " + gameObject.name + " and " + collisionInfo.GetComponent<Collider>().name);
-
-        //TODO: Switch to supermarket scene
+        if (collisionInfo.GetComponent<Collider>().name == "HeadCollider")
+        {
+            //TODO: Switch to supermarket scene
+            SceneManager.LoadScene("Supermarket_01");
+        }
     }
 }
