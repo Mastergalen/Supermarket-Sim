@@ -30,14 +30,6 @@ public class Pickup : MonoBehaviour {
             }
         }
 
-        if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
-        {
-            if (objectInHand != null)
-            {
-                objectInHand.transform.position = gameObject.transform.position;
-            }
-        }
-
         if (hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
         {
             if (objectInHand != null)
@@ -48,9 +40,8 @@ public class Pickup : MonoBehaviour {
 	}
 
     void Grab(RaycastHit hitInfo) {
+        Debug.Log("Grabbing Object");
         objectInHand = hitInfo.transform.gameObject;
-        var distance = hitInfo.distance;
-        Debug.LogFormat("Colliding %f", distance);
 
         joint = gameObject.AddComponent<FixedJoint>();
         joint.breakForce = 20000;
@@ -62,19 +53,18 @@ public class Pickup : MonoBehaviour {
     void ReleaseObject()
     {
         Debug.Log("Releasing object");
-        Rigidbody rb = objectInHand.GetComponent<Rigidbody>();
+        Rigidbody rbObject = objectInHand.GetComponent<Rigidbody>();
+        Rigidbody rbController = gameObject.GetComponent<Rigidbody>();
 
-        var origin = gameObject.transform.position;
-        rb.velocity = hand.controller.velocity;
-        rb.angularVelocity = hand.controller.angularVelocity;
+        rbObject.velocity = hand.controller.velocity;
+        rbObject.angularVelocity = hand.controller.angularVelocity;
         
-        objectInHand = null;
         if (joint != null)
         {
             joint.connectedBody = null;
             Destroy(joint);
-            joint = null;
         }
+        objectInHand = null;
         //FIXME: Velocity wrong way round
     }
 }
