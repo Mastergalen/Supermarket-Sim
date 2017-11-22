@@ -5,8 +5,9 @@ using UnityEngine;
 public class Pickup : MonoBehaviour {
     private Valve.VR.InteractionSystem.Hand hand;
     private GameObject objectInHand;
+    private GameObject collidingObject;
     private FixedJoint joint;
-    
+
 	void Start () {
         hand = gameObject.GetComponent<Valve.VR.InteractionSystem.Hand>();
     }
@@ -17,16 +18,9 @@ public class Pickup : MonoBehaviour {
 
         if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            RaycastHit hitInfo;       
-            if (Physics.Raycast(
-                gameObject.transform.position,
-                gameObject.transform.forward,
-                out hitInfo,
-                0.1f,
-                LayerMask.GetMask("Grabbable")
-               ))
+            if(collidingObject)
             {
-                Grab(hitInfo);
+                Grab(collidingObject);
             }
         }
 
@@ -39,15 +33,44 @@ public class Pickup : MonoBehaviour {
         }
 	}
 
-    void Grab(RaycastHit hitInfo) {
+    private void OnTriggerEnter(Collider other)
+    {
+        SetCollidingObject(other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        SetCollidingObject(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        collidingObject = null;
+    }
+
+    private void SetCollidingObject(Collider c)
+    {
+        if(collidingObject || !c.GetComponent<Rigidbody>())
+        {
+            return;
+        }
+
+        int layer = c.gameObject.layer;
+
+        if (layer != LayerMask.NameToLayer("Grabbable")) return;
+
+        collidingObject = c.gameObject;
+    }
+
+    void Grab(GameObject objectToGrab) {
         Debug.Log("Grabbing Object");
-        objectInHand = hitInfo.transform.gameObject;
+        objectInHand = objectToGrab;
 
         joint = gameObject.AddComponent<FixedJoint>();
         joint.breakForce = 20000;
         joint.breakTorque = 20000;
 
-        joint.connectedBody = hitInfo.transform.gameObject.GetComponent<Rigidbody>();        
+        joint.connectedBody = objectToGrab.GetComponent<Rigidbody>();        
     }
 
     void ReleaseObject()
@@ -65,6 +88,5 @@ public class Pickup : MonoBehaviour {
             Destroy(joint);
         }
         objectInHand = null;
-        //FIXME: Velocity wrong way round
     }
 }
