@@ -20,14 +20,7 @@ namespace UCL.COMPGV07
         /// A list of objects that the participant must collect and return. These should be instances of ProductCode
         /// (or any GameObjects containing a ProductCode).
         /// </summary>
-        public List<ItemToCollect> ItemsToCollect;
-
-        [Serializable]
-        public class ItemToCollect
-        {
-            public GameObject Prefab;
-            public int Quantity;
-        }
+        public List<GameObject> ItemsToCollect;
 
         public void Save(string path)
         {
@@ -42,10 +35,7 @@ namespace UCL.COMPGV07
             }
             foreach(var item in ItemsToCollect)
             {
-                LineItem line = new LineItem();
-                line.Code = item.Prefab.GetComponent<ProductCode>().Code;
-                line.Quantity = item.Quantity;
-                configuration.Order.Add(line);
+                configuration.Order.Add(item.GetComponent<ProductCode>().Code);
             }
 
             var serialiser = new XmlSerializer(typeof(ExperimentConfiguration));

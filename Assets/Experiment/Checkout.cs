@@ -25,12 +25,12 @@ namespace UCL.COMPGV07 {
             if (codeComponent != null)
             {
                 code = codeComponent.Code;
+
+                experimentManager.GiveItem(code);
+                speaker.PlayOneShot(scanSuccess);
+
+                Destroy(other.gameObject);
             }
-
-            experimentManager.GiveItem(code);
-
-            Destroy(other.gameObject);
-            speaker.PlayOneShot(scanSuccess);
         }
     }
 }

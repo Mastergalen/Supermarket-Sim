@@ -2,17 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
 
 namespace UCL.COMPGV07{
-
-    [Serializable]
-    public class LineItem
-    {
-        public int Code;
-        public int Quantity;
-    }
 
     [Serializable]
     public class Spawn
@@ -26,7 +20,14 @@ namespace UCL.COMPGV07{
     public class ExperimentConfiguration
     {
         public List<Spawn> Spawnable = new List<Spawn>();
-        public List<LineItem> Order = new List<LineItem>();            
+        public List<int> Order = new List<int>();            
+    }
+
+    [Serializable]
+    public struct Purchase
+    {
+        public int Code;
+        public float Time;
     }
 
     /// <summary>
@@ -40,17 +41,17 @@ namespace UCL.COMPGV07{
         /// </summary>
         public GameObject[] Inventory;
 
-        public bool verbose = false;
-
         /// <summary>
-        /// The items that the participant must collect, loaded from File;
+        /// The items to collect, loaded from the file
         /// </summary>
-        [HideInInspector]
-        public Dictionary<int,int> orderState;
+        public int[] ItemsToCollect { get; private set; }
+        public List<Purchase> ItemsCollected { get; private set; }
+
+        private List<int> itemsOutstanding;
 
         public void Start()
         {
-            orderState = new Dictionary<int, int>();
+
         }
 
         public void Load(Stream stream)
@@ -71,31 +72,34 @@ namespace UCL.COMPGV07{
             }
 
             // order
-            foreach(var line in configuration.Order)
-            {
-                orderState[line.Code] = line.Quantity;
-            }
+            ItemsToCollect = configuration.Order.ToArray();
+            ItemsCollected = new List<Purchase>();
+
+            itemsOutstanding = new List<int>(ItemsToCollect);
         }
 
         public bool GiveItem(int code)
         {
-            if(!orderState.ContainsKey(code))
+            ItemsCollected.Add(new Purchase()
             {
-                orderState[code] = 0;
-            }
-            orderState[code]--;
+                Code = code,
+                Time = Time.time                
+            });
 
-            // some live checking
-            if(verbose)
+            // do some live checking
+            if (itemsOutstanding.Contains(code))
             {
-                if(orderState[code] < 0)
-                {
-                    Debug.Log("Incorrect!");
-                }
-                else
-                {
-                    Debug.Log("Correct!");
-                }
+                itemsOutstanding.Remove(code);
+                Debug.Log("Correct!");
+            }
+            else
+            {
+                Debug.Log("Incorrect!");
+            }
+
+            if(itemsOutstanding.Count == 0)
+            {
+                Debug.Log("Experiment Complete!");
             }
 
             return true;
