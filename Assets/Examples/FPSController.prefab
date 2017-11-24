@@ -30,7 +30,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1902244624732926
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 124407102074336332}
   m_Layer: 0
   m_Name: FirstPersonCharacter
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,8 +55,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1553395452955494}
-  m_LocalRotation: {x: 0, y: 0.55269104, z: 0, w: -0.83338624}
-  m_LocalPosition: {x: -0.3342679, y: 0.98799807, z: 0.48094445}
+  m_LocalRotation: {x: -0, y: -0.99997544, z: -0, w: -0.0070133926}
+  m_LocalPosition: {x: 0, y: 0.988, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4648003059016288}
@@ -69,8 +69,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902244624732926}
-  m_LocalRotation: {x: 0.0040881033, y: 0.994594, z: 0.06899514, w: -0.07749749}
-  m_LocalPosition: {x: -0.45401818, y: 1.6139684, z: -1.2526975}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4535978016572244}
@@ -94,7 +94,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 111.854744
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -103,7 +103,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
@@ -219,12 +219,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1553395452955494}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05ec5cf00ca181d45a42ba1870e148c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsWalking: 1
+  m_IsWalking: 0
   m_WalkSpeed: 4
   m_RunSpeed: 6
   m_RunstepLenghten: 0
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_UseFovKick: 0
   m_FovKick:
     Camera: {fileID: 0}
-    originalFov: 111.854744
+    originalFov: 0
     FOVIncrease: 3
     TimeToIncrease: 1
     TimeToDecrease: 1

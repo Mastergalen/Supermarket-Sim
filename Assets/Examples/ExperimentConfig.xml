@@ -2,140 +2,162 @@
 <ExperimentConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Spawnable>
     <Spawn>
-      <Product>1</Product>
+      <Product>49</Product>
       <Position>
-        <x>9.75</x>
-        <y>1.021</y>
-        <z>-6.241</z>
+        <x>9.857</x>
+        <y>1.034</y>
+        <z>-6.209</z>
       </Position>
       <Rotation>
         <x>0</x>
-        <y>-0.664185</y>
+        <y>-0.5150808</y>
         <z>0</z>
-        <w>0.74756825</w>
+        <w>0.8571417</w>
         <eulerAngles>
           <x>0</x>
-          <y>276.760345</y>
+          <y>297.9943</y>
           <z>0</z>
         </eulerAngles>
       </Rotation>
     </Spawn>
     <Spawn>
-      <Product>4</Product>
+      <Product>56</Product>
       <Position>
-        <x>9.94</x>
-        <y>1.033</y>
-        <z>-6.258</z>
+        <x>10.517</x>
+        <y>1.04</y>
+        <z>-6.185</z>
       </Position>
       <Rotation>
         <x>0</x>
-        <y>-0.6943415</y>
+        <y>0</y>
         <z>0</z>
-        <w>0.719645739</w>
+        <w>1</w>
         <eulerAngles>
           <x>0</x>
-          <y>272.050476</y>
+          <y>0</y>
           <z>0</z>
         </eulerAngles>
       </Rotation>
     </Spawn>
     <Spawn>
-      <Product>47</Product>
+      <Product>51</Product>
       <Position>
-        <x>10.345</x>
-        <y>1.081</y>
-        <z>-6.116</z>
+        <x>10.24</x>
+        <y>1.03098059</y>
+        <z>-6.2092557</z>
       </Position>
       <Rotation>
         <x>0</x>
-        <y>0.708199561</y>
+        <y>-0.7054352</y>
         <z>0</z>
-        <w>0.706012368</w>
+        <w>0.7087745</w>
         <eulerAngles>
           <x>0</x>
-          <y>90.17722</y>
+          <y>270.270569</y>
           <z>0</z>
         </eulerAngles>
       </Rotation>
     </Spawn>
     <Spawn>
-      <Product>36</Product>
+      <Product>54</Product>
       <Position>
-        <x>10.144</x>
-        <y>1.13</y>
-        <z>-6.08700037</z>
+        <x>10.038</x>
+        <y>1.041</y>
+        <z>-6.22614241</z>
       </Position>
       <Rotation>
         <x>0</x>
-        <y>0.708199561</y>
+        <y>-0.70715183</y>
         <z>0</z>
-        <w>0.706012368</w>
+        <w>0.707061768</w>
         <eulerAngles>
           <x>0</x>
-          <y>90.17722</y>
+          <y>269.9927</y>
           <z>0</z>
         </eulerAngles>
       </Rotation>
     </Spawn>
     <Spawn>
-      <Product>11</Product>
+      <Product>49</Product>
       <Position>
-        <x>10.43</x>
-        <y>1.133</y>
-        <z>-6.13</z>
+        <x>-7.933</x>
+        <y>1.588</y>
+        <z>-13.309</z>
       </Position>
       <Rotation>
         <x>0</x>
-        <y>0.708199561</y>
+        <y>-0.8645132</y>
         <z>0</z>
-        <w>0.706012368</w>
+        <w>0.5026102</w>
         <eulerAngles>
           <x>0</x>
-          <y>90.17722</y>
+          <y>240.345673</y>
           <z>0</z>
         </eulerAngles>
       </Rotation>
     </Spawn>
     <Spawn>
-      <Product>36</Product>
+      <Product>56</Product>
       <Position>
-        <x>10.144</x>
-        <y>1.13</y>
-        <z>-6.242</z>
+        <x>-4.461</x>
+        <y>0.612</y>
+        <z>-50.428</z>
       </Position>
       <Rotation>
         <x>0</x>
-        <y>0.708199561</y>
+        <y>0.190119877</y>
         <z>0</z>
-        <w>0.706012368</w>
+        <w>0.9817609</w>
         <eulerAngles>
           <x>0</x>
-          <y>90.17722</y>
+          <y>21.9195614</y>
+          <z>0</z>
+        </eulerAngles>
+      </Rotation>
+    </Spawn>
+    <Spawn>
+      <Product>51</Product>
+      <Position>
+        <x>-1.85</x>
+        <y>1.147</y>
+        <z>-17.505</z>
+      </Position>
+      <Rotation>
+        <x>0</x>
+        <y>-0.0141516812</y>
+        <z>0</z>
+        <w>0.9998999</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>358.3783</y>
+          <z>0</z>
+        </eulerAngles>
+      </Rotation>
+    </Spawn>
+    <Spawn>
+      <Product>54</Product>
+      <Position>
+        <x>-1.741</x>
+        <y>1.597</y>
+        <z>-31.489</z>
+      </Position>
+      <Rotation>
+        <x>0</x>
+        <y>-0.993346</y>
+        <z>0</z>
+        <w>-0.115168937</w>
+        <eulerAngles>
+          <x>0</x>
+          <y>166.77327</y>
           <z>0</z>
         </eulerAngles>
       </Rotation>
     </Spawn>
   </Spawnable>
   <Order>
-    <LineItem>
-      <Code>1</Code>
-      <Quantity>1</Quantity>
-    </LineItem>
-    <LineItem>
-      <Code>4</Code>
-      <Quantity>1</Quantity>
-    </LineItem>
-    <LineItem>
-      <Code>47</Code>
-      <Quantity>1</Quantity>
-    </LineItem>
-    <LineItem>
-      <Code>36</Code>
-      <Quantity>2</Quantity>
-    </LineItem>
-    <LineItem>
-      <Code>11</Code>
-      <Quantity>1</Quantity>
-    </LineItem>
+    <int>49</int>
+    <int>56</int>
+    <int>51</int>
+    <int>54</int>
   </Order>
 </ExperimentConfiguration>
