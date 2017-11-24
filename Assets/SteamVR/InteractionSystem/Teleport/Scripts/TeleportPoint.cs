@@ -29,7 +29,6 @@ namespace Valve.VR.InteractionSystem
 		public Color titleHighlightedColor;
 		public Color titleLockedColor;
 		public bool playerSpawnPoint = false;
-        public float hello;
 
         //Private data
         private bool gotReleventComponents = false;

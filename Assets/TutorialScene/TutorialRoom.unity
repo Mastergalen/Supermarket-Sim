@@ -452,7 +452,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11479906, guid: 73ac470d3d909d645a6c89a4664b6849, type: 2}
       propertyPath: title
-      value: 
+      value: Teleport Here
       objectReference: {fileID: 0}
     - target: {fileID: 101508, guid: 73ac470d3d909d645a6c89a4664b6849, type: 2}
       propertyPath: m_IsActive
@@ -470,6 +470,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 510c6e0b8b5c948458c2b4bc3de5a637, type: 2}
+    - target: {fileID: 11479906, guid: 73ac470d3d909d645a6c89a4664b6849, type: 2}
+      propertyPath: markerActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 73ac470d3d909d645a6c89a4664b6849, type: 2}
   m_IsPrefabParent: 0
@@ -598,7 +602,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3, z: 1}
+  m_Size: {x: 1, y: 10, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &202949349
 MonoBehaviour:
@@ -611,6 +615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58555b288992cc4cbe2ad5cf69d9d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextTeleportName: TeleportPoint2
+  currentTeleportName: TeleportPoint1
 --- !u!1001 &210313073
 Prefab:
   m_ObjectHideFlags: 0
@@ -893,7 +899,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11479906, guid: 73ac470d3d909d645a6c89a4664b6849, type: 2}
       propertyPath: title
-      value: 
+      value: Teleport Here
       objectReference: {fileID: 0}
     - target: {fileID: 2356592, guid: 73ac470d3d909d645a6c89a4664b6849, type: 2}
       propertyPath: m_Materials.Array.data[0]
