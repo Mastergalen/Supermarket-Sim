@@ -18,7 +18,8 @@ public class Pickup : MonoBehaviour {
 
         if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            if(collidingObject)
+            UCL.COMPGV07.Logging.KeyDown();
+            if (collidingObject)
             {
                 Grab(collidingObject);
             }
