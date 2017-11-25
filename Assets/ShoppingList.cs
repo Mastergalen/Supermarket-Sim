@@ -22,26 +22,21 @@ public class ShoppingList : MonoBehaviour
             items = checkout.GetComponent<Checkout>().experimentManager.ItemsToCollect;
             int numberOfItems = items.Length;
             GameObject[] shoppingList = new GameObject[numberOfItems];
-            FixedJoint[] joints = new FixedJoint[numberOfItems];
 
             foreach (int item in items) {
-
                 int index = item - 2;
 
                 GameObject product = Instantiate(
                     checkout.GetComponent<Checkout>().experimentManager.Inventory[index],
                     gameObject.transform.position + new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f),
-                    Quaternion.Euler(58, 0, 0)
+                    Quaternion.Euler(57, 0, 0)
                     );
-
+                Destroy(product.GetComponent<BoxCollider>());
+                Destroy(product.GetComponent<CapsuleCollider>());
+                Destroy(product.GetComponent<Rigidbody>());
+                product.transform.parent = transform;
+                product.transform.localPosition = new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f);
                 product.transform.localScale -= new Vector3(0.9f, 0.9f, 0.9f);
-
-                product.transform.parent = gameObject.transform;
-                
-                joints[i] = gameObject.AddComponent<FixedJoint>();
-                joints[i].breakForce = 20000;
-                joints[i].breakTorque = 20000;
-                joints[i].connectedBody = product.GetComponent<Rigidbody>();
 
                 shoppingList[i] = product;
 
