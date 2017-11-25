@@ -27,14 +27,16 @@ public class ControllerMode : MonoBehaviour {
 
 			if (touchpad.y > 0.7f)
 			{
-				Debug.Log ("Grab Mode");
+                UCL.COMPGV07.Logging.KeyDown();
+                Debug.Log ("Grab Mode");
 				currentMode = Mode.Grab;
                 SetGUI("Grab");
 			}
 
 			if (touchpad.x > 0.7f)
 			{
-				Debug.Log ("Portal Gun");
+                UCL.COMPGV07.Logging.KeyDown();
+                Debug.Log ("Portal Gun");
 				currentMode = Mode.PortalGun;
                 SetGUI("Portal");
             }

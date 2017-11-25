@@ -237,7 +237,13 @@ namespace Valve.VR.InteractionSystem
 			Hand oldPointerHand = pointerHand;
 			Hand newPointerHand = null;
 
-			foreach ( Hand hand in player.hands )
+            // Add UCL logging
+            if(IsTeleportButtonDown(pointerHand))
+            {
+                UCL.COMPGV07.Logging.KeyDown();
+            }
+
+            foreach ( Hand hand in player.hands )
 			{
 				if ( visible )
 				{
