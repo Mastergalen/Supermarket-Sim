@@ -50,6 +50,9 @@ public class ShoppingList : MonoBehaviour
                 i++;
             }
 
+            // Disable portal mode GUI while showing list
+            transform.Find("ControllerGUI").gameObject.SetActive(false);
+
             // destroy objects
             hasSpawned = true;
         } else if (hasSpawned = hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.ApplicationMenu)) {
@@ -57,6 +60,9 @@ public class ShoppingList : MonoBehaviour
             {
                 Destroy(shoppingList[j]);
             }
+
+            // Re-enable controller GUI
+            transform.Find("ControllerGUI").gameObject.SetActive(true);
         }
     }
 }

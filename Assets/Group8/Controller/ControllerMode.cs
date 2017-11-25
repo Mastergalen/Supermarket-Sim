@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Valve.VR.InteractionSystem;
 
 public class ControllerMode : MonoBehaviour {
@@ -28,13 +29,22 @@ public class ControllerMode : MonoBehaviour {
 			{
 				Debug.Log ("Grab Mode");
 				currentMode = Mode.Grab;
+                SetGUI("Grab");
 			}
 
 			if (touchpad.x > 0.7f)
 			{
 				Debug.Log ("Portal Gun");
 				currentMode = Mode.PortalGun;
+                SetGUI("Portal");
             }
 		}
 	}
+
+    void SetGUI(string label)
+    {
+        GameObject labelObject = transform.Find("ControllerGUI").Find("ModeLabel").gameObject;
+
+        labelObject.GetComponent<Text>().text = label;
+    }
 }
