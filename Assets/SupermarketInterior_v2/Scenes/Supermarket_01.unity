@@ -379,6 +379,7 @@ MonoBehaviour:
   - {fileID: 198184, guid: 4307c2305e9b41b4d8a0878bf8ce3696, type: 2}
   - {fileID: 175332, guid: 671837354b1e51645a0bf23e801b2c46, type: 2}
   - {fileID: 103622, guid: 818e326e8dfc5d043a27230b4d927d50, type: 2}
+  CameraGUI: {fileID: 1676451543}
   ConfigAsset: {fileID: 4900000, guid: 4df7a3a86f0a44846b33a3fc3bd11078, type: 3}
 --- !u!1001 &773588671
 Prefab:
@@ -434,6 +435,31 @@ Prefab:
       propertyPath: checkout
       value: 
       objectReference: {fileID: 149343707}
+    - target: {fileID: 224486647043874932, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224486647043874932, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 223734506411890562, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457879295715998, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: m_DynamicPixelsPerUnit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114457879295715998, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 114626d615b401343af02367dc012729, type: 2}
   m_IsPrefabParent: 0
@@ -484,6 +510,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ad31e1bf9d0479c9eb754c498a75, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1676451543 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1059999441327312, guid: 114626d615b401343af02367dc012729,
+    type: 2}
+  m_PrefabInternal: {fileID: 773588671}
 --- !u!1001 &1946258766
 Prefab:
   m_ObjectHideFlags: 0
