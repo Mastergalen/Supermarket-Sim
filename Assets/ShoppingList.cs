@@ -11,39 +11,44 @@ public class ShoppingList : MonoBehaviour
     private int i = 0;
     private bool hasSpawned;
 
-    void Start()
-    {
+    void Start() {
     }
 
     void Update()
     {
-        // Using Start () does not work.
-        if (!hasSpawned)
-        {
+        // While holding button instead of the if below
+        if (!hasSpawned) {
+
             items = checkout.GetComponent<Checkout>().experimentManager.ItemsToCollect;
-            GameObject[] shoppingList = new GameObject[items.Length];
-            FixedJoint[] joints = new FixedJoint[items.Length];
-            foreach (int item in items)
-            {
-                // One of the prodcts in the XML has code 56, but there are only 55 items in Inventory
-                int index = item - 1;
-                if (index > 54) {
-                    index = 54;
-                }
-                Debug.Log("Spawning product");
-                GameObject product = Instantiate(checkout.GetComponent<Checkout>().experimentManager.Inventory[index], gameObject.transform.position + new Vector3(0, (i * 0.1f), 0), Quaternion.identity);
-                Debug.Log(product);
+            int numberOfItems = items.Length;
+            GameObject[] shoppingList = new GameObject[numberOfItems];
+            FixedJoint[] joints = new FixedJoint[numberOfItems];
+
+            foreach (int item in items) {
+
+                int index = item - 2;
+
+                GameObject product = Instantiate(
+                    checkout.GetComponent<Checkout>().experimentManager.Inventory[index],
+                    gameObject.transform.position + new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f),
+                    Quaternion.Euler(58, 0, 0)
+                    );
+
+                product.transform.localScale -= new Vector3(0.9f, 0.9f, 0.9f);
 
                 product.transform.parent = gameObject.transform;
-                // Change quat.id if rotation is messed up
+                
                 joints[i] = gameObject.AddComponent<FixedJoint>();
                 joints[i].breakForce = 20000;
                 joints[i].breakTorque = 20000;
                 joints[i].connectedBody = product.GetComponent<Rigidbody>();
 
                 shoppingList[i] = product;
+
                 i++;
             }
+
+            // destroy objects
             hasSpawned = true;
         }
     }
