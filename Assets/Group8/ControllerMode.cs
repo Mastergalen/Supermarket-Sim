@@ -28,16 +28,12 @@ public class ControllerMode : MonoBehaviour {
 			{
 				Debug.Log ("Grab Mode");
 				currentMode = Mode.Grab;
-
-				portalGun.Disable();
 			}
 
 			if (touchpad.x > 0.7f)
 			{
 				Debug.Log ("Portal Gun");
 				currentMode = Mode.PortalGun;
-
-                portalGun.Enable();
             }
 		}
 	}

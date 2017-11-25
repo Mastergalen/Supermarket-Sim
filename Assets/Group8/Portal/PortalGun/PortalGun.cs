@@ -9,15 +9,11 @@ public class PortalGun : MonoBehaviour {
     public int projectileSpeed = 10;
 
 	private Valve.VR.InteractionSystem.Hand hand;
-	private SteamVR_LaserPointer laser;
 
-	// Use this for initialization
 	void Start () {
 		hand = gameObject.GetComponent<Valve.VR.InteractionSystem.Hand>();
-		laser = GetComponent<SteamVR_LaserPointer>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
         if (hand.controller == null) return;
 
@@ -32,14 +28,6 @@ public class PortalGun : MonoBehaviour {
 
 			ShootPortal();
 		}
-	}
-
-	public void Enable() {
-		laser.enabled = true;
-	}
-
-	public void Disable() {
-		laser.enabled = false;
 	}
 
 	void ShootPortal() {

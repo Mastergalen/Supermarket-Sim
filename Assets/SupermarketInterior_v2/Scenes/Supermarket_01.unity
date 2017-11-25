@@ -467,7 +467,14 @@ Prefab:
       propertyPath: active
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114511350670721220, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: portalOutSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114241672817763082, guid: 114626d615b401343af02367dc012729, type: 2}
+    - {fileID: 114598756614151602, guid: 114626d615b401343af02367dc012729, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 114626d615b401343af02367dc012729, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &924393880
