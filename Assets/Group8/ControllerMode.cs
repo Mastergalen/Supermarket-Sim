@@ -30,7 +30,6 @@ public class ControllerMode : MonoBehaviour {
 				currentMode = Mode.Grab;
 
 				portalGun.Disable();
-                teleport.OnEnable();
 			}
 
 			if (touchpad.x > 0.7f)
@@ -38,8 +37,7 @@ public class ControllerMode : MonoBehaviour {
 				Debug.Log ("Portal Gun");
 				currentMode = Mode.PortalGun;
 
-				portalGun.Enable();
-                teleport.OnDisable();
+                portalGun.Enable();
             }
 		}
 	}
