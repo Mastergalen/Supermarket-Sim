@@ -292,6 +292,8 @@ GameObject:
   - component: {fileID: 114111478712567926}
   - component: {fileID: 114298826484046764}
   - component: {fileID: 114912833927278894}
+  - component: {fileID: 114241672817763082}
+  - component: {fileID: 114779409098413878}
   m_Layer: 26
   m_Name: Hand2
   m_TagString: Untagged
@@ -447,6 +449,8 @@ GameObject:
   - component: {fileID: 114862650799530574}
   - component: {fileID: 114681667146617094}
   - component: {fileID: 114053184670402964}
+  - component: {fileID: 114598756614151602}
+  - component: {fileID: 114776565405916510}
   m_Layer: 26
   m_Name: Hand1
   m_TagString: Untagged
@@ -1164,6 +1168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2186d34c82793f4784d9c525f5260e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 1008096824086352, guid: e977e418aa47e50478cef6b6aad4d356, type: 2}
 --- !u!114 &114081055365662614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1304,6 +1309,24 @@ MonoBehaviour:
   controllerPrefab: {fileID: 168468, guid: 3f39fc63a93686e4a8e9168ee73f24d9, type: 2}
   showDebugText: 0
   spewDebugText: 0
+--- !u!114 &114241672817763082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1641366980640480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e8a839a7c5b7e4580c59e305fb5f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  color: {r: 1, g: 0, b: 0, a: 0}
+  thickness: 0.002
+  holder: {fileID: 0}
+  pointer: {fileID: 0}
+  addRigidBody: 0
+  reference: {fileID: 0}
 --- !u!114 &114298826484046764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1469,6 +1492,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highLightMaterial: {fileID: 2100000, guid: 7b939e5e799d98a469f594828ebab52e, type: 2}
   fireHapticsOnHightlight: 1
+--- !u!114 &114598756614151602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956319356770322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e8a839a7c5b7e4580c59e305fb5f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  color: {r: 1, g: 0, b: 0, a: 0}
+  thickness: 0.002
+  holder: {fileID: 0}
+  pointer: {fileID: 0}
+  addRigidBody: 0
+  reference: {fileID: 0}
 --- !u!114 &114681667146617094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1523,6 +1564,18 @@ MonoBehaviour:
   externalCamera: {fileID: 0}
   externalCameraConfigPath: externalcamera.cfg
   trackingSpace: 1
+--- !u!114 &114776565405916510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956319356770322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd5f1c633d454a0ca44474d243ddc06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMode: 0
 --- !u!114 &114779138168399882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1538,6 +1591,18 @@ MonoBehaviour:
   flashColor: {r: 1, g: 0.9170069, b: 0.453, a: 0.709}
   textHintPrefab: {fileID: 140952, guid: 5fa42bb9e52706a42b8a1eaf0b54326a, type: 2}
   debugHints: 0
+--- !u!114 &114779409098413878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1641366980640480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd5f1c633d454a0ca44474d243ddc06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMode: 0
 --- !u!114 &114842519852610734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1575,6 +1640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2186d34c82793f4784d9c525f5260e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 1008096824086352, guid: e977e418aa47e50478cef6b6aad4d356, type: 2}
 --- !u!124 &124716058262198136
 Behaviour:
   m_ObjectHideFlags: 1

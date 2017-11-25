@@ -14,6 +14,10 @@ public class Pickup : MonoBehaviour {
 
     // Update is called once per frame
 	void Update () {
+		ControllerMode.Mode currentMode = GetComponent<ControllerMode> ().currentMode;
+
+		if (currentMode != ControllerMode.Mode.Grab) return;
+
         if (hand.controller == null) return;
 
         if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))

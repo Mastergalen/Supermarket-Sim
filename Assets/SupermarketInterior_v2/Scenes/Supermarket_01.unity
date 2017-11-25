@@ -419,7 +419,62 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114912833927278894, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 1008096824086352, guid: e977e418aa47e50478cef6b6aad4d356,
+        type: 2}
+    - target: {fileID: 114053184670402964, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 1008096824086352, guid: e977e418aa47e50478cef6b6aad4d356,
+        type: 2}
+    - target: {fileID: 114511350670721220, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: portalPrefab
+      value: 
+      objectReference: {fileID: 1607242221393484, guid: 3c573079d91436841a449d75f739ea6f,
+        type: 2}
+    - target: {fileID: 114912833927278894, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: VRCamera
+      value: 
+      objectReference: {fileID: 2016594036}
+    - target: {fileID: 114053184670402964, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: VRCamera
+      value: 
+      objectReference: {fileID: 2016594036}
+    - target: {fileID: 114912833927278894, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114053184670402964, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: bellyPortal
+      value: 
+      objectReference: {fileID: 1938970792}
+    - target: {fileID: 114912833927278894, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: bellyPortal
+      value: 
+      objectReference: {fileID: 1938970792}
+    - target: {fileID: 114241672817763082, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: active
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114511350670721220, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: portalOutSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114241672817763082, guid: 114626d615b401343af02367dc012729, type: 2}
+    - {fileID: 114598756614151602, guid: 114626d615b401343af02367dc012729, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 114626d615b401343af02367dc012729, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &924393880
@@ -461,9 +516,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114311494129992832, guid: c1f3ad31e1bf9d0479c9eb754c498a75,
+        type: 2}
+      propertyPath: debugFloor
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ad31e1bf9d0479c9eb754c498a75, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1938970792 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1244374333637054, guid: 114626d615b401343af02367dc012729,
+    type: 2}
+  m_PrefabInternal: {fileID: 773588671}
 --- !u!1001 &1946258766
 Prefab:
   m_ObjectHideFlags: 0
