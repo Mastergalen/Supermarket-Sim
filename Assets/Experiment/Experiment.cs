@@ -41,6 +41,8 @@ namespace UCL.COMPGV07{
         /// </summary>
         public GameObject[] Inventory;
 
+        public GameObject CameraGUI;
+
         /// <summary>
         /// The items to collect, loaded from the file
         /// </summary>
@@ -91,18 +93,26 @@ namespace UCL.COMPGV07{
             {
                 itemsOutstanding.Remove(code);
                 Debug.Log("Correct!");
+                SendNotification("Correct!");
             }
             else
             {
                 Debug.Log("Incorrect!");
+                SendNotification("Incorrect");
             }
 
             if(itemsOutstanding.Count == 0)
             {
                 Debug.Log("Experiment Complete!");
+                SendNotification("Experiment Complete!");
             }
 
             return true;
+        }
+
+        private void SendNotification(string msg)
+        {
+            CameraGUI.GetComponent<Notifications>().DisplayMessage(msg);
         }
     }
 }

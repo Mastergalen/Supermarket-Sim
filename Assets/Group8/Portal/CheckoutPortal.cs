@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CheckoutPortal : MonoBehaviour {
     public GameObject portalPrefab;
-    public GameObject targetPortal;    
+    public GameObject targetPortal;
+    public GameObject CameraGUI;
 
     public float portalOutSpeed = 3.0f;
     public float spawnOffset = 0.4f;
@@ -51,6 +52,7 @@ public class CheckoutPortal : MonoBehaviour {
         {
             // TODO: Trigger help tooltip, remind them to place target portal first
             Debug.Log("No target portal set");
+            CameraGUI.GetComponent<Notifications>().DisplayMessage("No target portal set");
             return;
         }
 
