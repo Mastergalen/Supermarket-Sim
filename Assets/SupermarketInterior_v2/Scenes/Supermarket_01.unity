@@ -460,6 +460,12 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114511350670721220, guid: 114626d615b401343af02367dc012729,
+        type: 2}
+      propertyPath: portalPrefab
+      value: 
+      objectReference: {fileID: 1694312178236918, guid: cf8152bfd52519843a3db8c2fe33adeb,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 114626d615b401343af02367dc012729, type: 2}
   m_IsPrefabParent: 0
