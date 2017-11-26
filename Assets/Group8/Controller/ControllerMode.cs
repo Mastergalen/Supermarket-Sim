@@ -4,17 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using Valve.VR.InteractionSystem;
 
+[RequireComponent(typeof(Minimap))]
+
 public class ControllerMode : MonoBehaviour {
 
 	public enum Mode { Grab, PortalGun };
 	public Mode currentMode = Mode.Grab;
 
-	private Valve.VR.InteractionSystem.Hand hand;
+    private Hand hand;
     private Teleport teleport;
 
 
     void Start () {
-		hand = gameObject.GetComponent<Valve.VR.InteractionSystem.Hand>();
+		hand = gameObject.GetComponent<Hand>();
         teleport = GameObject.Find("Teleporting").GetComponent<Teleport>();
     }
 
@@ -33,7 +35,15 @@ public class ControllerMode : MonoBehaviour {
                 SetGUI("Grab");
 			}
 
-			if (touchpad.x > 0.7f)
+            if (touchpad.y < -0.7f)
+            {
+                UCL.COMPGV07.Logging.KeyDown();
+                Debug.Log("Show Map");
+
+                GetComponent<Minimap>().CreateMinimap();
+            }
+
+            if (touchpad.x > 0.7f)
 			{
                 UCL.COMPGV07.Logging.KeyDown();
                 Debug.Log ("Portal Gun");
@@ -43,7 +53,7 @@ public class ControllerMode : MonoBehaviour {
 		}
 	}
 
-    void SetGUI(string label)
+    private void SetGUI(string label)
     {
         GameObject labelObject = transform.Find("ControllerGUI").Find("ModeLabel").gameObject;
 

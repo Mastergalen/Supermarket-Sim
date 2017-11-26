@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 51d63a453eede7d4bb595bae3830eb80
+timeCreated: 1511658126
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - MinimapPrefab: {fileID: 1379240662214168, guid: 930c22fd7ae033547a6d428ff9ab19a6,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
