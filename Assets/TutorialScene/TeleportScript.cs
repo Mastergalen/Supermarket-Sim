@@ -12,6 +12,7 @@ public class TeleportScript : MonoBehaviour {
     private GameObject portal;
     private GameObject throwable;
     private GameObject food;
+    private GameObject cashout;
 
     // Use this for initialization
     void Start () {
@@ -29,6 +30,12 @@ public class TeleportScript : MonoBehaviour {
     {
         if (collisionInfo.GetComponent<Collider>().name == "HeadCollider") //enable throwables tutorial
         {
+            if (tutorialPart == 1) //portal gun
+            {
+                teleportAreas[1].SetActive(false);
+                cashout.SetActive(true);
+                PortalGunTutorial();
+            }
             if (tutorialPart == 2)
             {
                 teleportAreas[2].SetActive(false);
@@ -56,6 +63,9 @@ public class TeleportScript : MonoBehaviour {
 
         food = GameObject.Find("Food");
         food.SetActive(false);
+
+        cashout = GameObject.Find("Cashout");
+        cashout.SetActive(false);
     }
 
     private void SetTargetTeleport()
@@ -73,10 +83,15 @@ public class TeleportScript : MonoBehaviour {
         }
     }
 
+    private void PortalGunTutorial()
+    {
+        //TODO teach them how to use the portal gun
+    }
+
     private void ThrowableTutorial()
     {
         //TODO tutorial for throwables
-        ActivatePortal();
+        ActivatePortal(); //throwable tutorial part done - can go to supermarket now! :)
     }
 
     IEnumerator PortalEffect(float time)
