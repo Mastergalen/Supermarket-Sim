@@ -7,7 +7,7 @@ using UnityEngine;
 public class TutorialScript : MonoBehaviour
 {
 
-    public GameObject[] teleportAreas = new GameObject[4];
+    public GameObject[] teleportAreas = new GameObject[5];
     private int tutorialPart = 0;
 
     private GameObject portal;
@@ -33,18 +33,21 @@ public class TutorialScript : MonoBehaviour
     {
         if (collisionInfo.GetComponent<Collider>().name == "HeadCollider") //enable throwables tutorial
         {
+            teleportAreas[tutorialPart].SetActive(false);
             if (tutorialPart == 1) //portal gun
             {
-                teleportAreas[1].SetActive(false);
                 cashout.SetActive(true);
                 PortalGunTutorial();
             }
-            if (tutorialPart == 2)
+            if (tutorialPart == 2) //throwable tutorial
             {
-                teleportAreas[2].SetActive(false);
                 food.SetActive(true);
                 throwable.SetActive(true);
                 ThrowableTutorial();
+            }
+            if (tutorialPart == 3) //minimap tutorial
+            {
+                MinimapTutorial();
             }
             tutorialPart++;
             SetTargetTeleport();
@@ -90,12 +93,17 @@ public class TutorialScript : MonoBehaviour
     private void PortalGunTutorial()
     {
         //TODO teach them how to use the portal gun
-        cashout.SetActive(false);
+        //cashout.SetActive(false);
     }
 
     private void ThrowableTutorial()
     {
         //TODO tutorial for throwables
+    }
+
+    private void MinimapTutorial()
+    {
+        //TODO tutorial for minimap
         ActivatePortal(); //throwable tutorial part done - can go to supermarket now! :)
     }
 
