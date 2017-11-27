@@ -690,12 +690,12 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 787847802}
+      objectReference: {fileID: 1527564990}
     - target: {fileID: 33918161120024628, guid: 114626d615b401343af02367dc012729,
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1788921407}
+      objectReference: {fileID: 1774858312}
     - target: {fileID: 114391907326815716, guid: 114626d615b401343af02367dc012729,
         type: 2}
       propertyPath: vertices.Array.data[0].x
@@ -784,39 +784,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4834100447129874, guid: 114626d615b401343af02367dc012729,
     type: 2}
   m_PrefabInternal: {fileID: 773588671}
---- !u!21 &787847802
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Sprites/Default
-  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - PixelSnap: 0
-    - _EnableExternalAlpha: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &924393880
 Prefab:
   m_ObjectHideFlags: 0
@@ -864,6 +831,39 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1f3ad31e1bf9d0479c9eb754c498a75, type: 2}
   m_IsPrefabParent: 0
+--- !u!21 &1527564990
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1650968487
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +894,7 @@ Transform:
   m_Father: {fileID: 773588672}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -0.563, y: -3.4640002, z: 5.6530004}
---- !u!43 &1788921407
+--- !u!43 &1774858312
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2851,6 +2851,16 @@ Prefab:
     - target: {fileID: 4010485525087210, guid: d3525a7c34023b94789d7b0f4d6939ad, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 20221874584087032, guid: d3525a7c34023b94789d7b0f4d6939ad,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294964735
+      objectReference: {fileID: 0}
+    - target: {fileID: 20221874584087032, guid: d3525a7c34023b94789d7b0f4d6939ad,
+        type: 2}
+      propertyPath: orthographic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d3525a7c34023b94789d7b0f4d6939ad, type: 2}
