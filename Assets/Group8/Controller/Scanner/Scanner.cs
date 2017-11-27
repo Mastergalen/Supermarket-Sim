@@ -8,12 +8,12 @@ public class Scanner : MonoBehaviour {
 
     public GameObject ScannerSprite;
     public GameObject Controller;
+    public GameObject Player;
 
     private Valve.VR.InteractionSystem.Hand hand;
     private ControllerMode.Mode currentMode;
     private bool isScanning = false;
-    private HashSet<int> scannedProductCodes = new HashSet<int>();
-
+    
     void Start () {
         hand = Controller.GetComponent<Valve.VR.InteractionSystem.Hand>();
     }
@@ -54,11 +54,6 @@ public class Scanner : MonoBehaviour {
 
         int productCode = other.gameObject.GetComponent<ProductCode>().Code;
 
-        if (!scannedProductCodes.Contains(productCode))
-        {
-            Debug.Log("Adding " + productCode);
-        }
-
-        scannedProductCodes.Add(productCode);
+        Player.GetComponent<MinimapController>().AddProductCode(productCode);
     }
 }
