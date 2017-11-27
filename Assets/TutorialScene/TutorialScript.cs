@@ -14,6 +14,7 @@ public class TutorialScript : MonoBehaviour
     private GameObject throwable;
     private GameObject food;
     private GameObject cashout;
+    private GameObject robot;
 
     // Use this for initialization
     void Start()
@@ -72,6 +73,10 @@ public class TutorialScript : MonoBehaviour
 
         cashout = GameObject.Find("Cashout");
         cashout.SetActive(false);
+
+        robot = GameObject.Find("RobotModel");
+        robot.transform.position = new Vector3(-5.48f, 0, 0);
+        robot.transform.eulerAngles = new Vector3(0, 134, 0);
     }
 
     private void SetTargetTeleport()
@@ -82,6 +87,8 @@ public class TutorialScript : MonoBehaviour
             {
                 teleportAreas[i].SetActive(true);
                 gameObject.GetComponent<BoxCollider>().center = new Vector3(teleportAreas[i].transform.position.x, 1.5f, teleportAreas[i].transform.position.z);
+                robot.transform.position = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
+                robot.transform.eulerAngles = new Vector3(0, 180, 0);
             }
             else
             {
