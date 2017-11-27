@@ -8,7 +8,7 @@ using Valve.VR.InteractionSystem;
 
 public class ControllerMode : MonoBehaviour {
 
-	public enum Mode { Grab, PortalGun };
+	public enum Mode { Grab, PortalGun, Scanner };
 	public Mode currentMode = Mode.Grab;
 
     private Hand hand;
@@ -50,7 +50,15 @@ public class ControllerMode : MonoBehaviour {
 				currentMode = Mode.PortalGun;
                 SetGUI("Portal");
             }
-		}
+
+            if (touchpad.x < -0.7f)
+            {
+                UCL.COMPGV07.Logging.KeyDown();
+                Debug.Log("Scanner Mode");
+                currentMode = Mode.Scanner;
+                SetGUI("Scanner");
+            }
+        }
 	}
 
     private void SetGUI(string label)
