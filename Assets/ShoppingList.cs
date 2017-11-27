@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class ShoppingList : MonoBehaviour
 {
     public GameObject checkout;
+    private GameObject[] inventory;
     private int[] items;
     private bool hasSpawned;
     private Valve.VR.InteractionSystem.Hand hand;
@@ -14,6 +15,7 @@ public class ShoppingList : MonoBehaviour
     void Start()
     {
         hand = gameObject.GetComponent<Valve.VR.InteractionSystem.Hand>();
+        inventory = checkout.GetComponent<Checkout>().experimentManager.Inventory;
     }
 
     void Update()
@@ -30,25 +32,30 @@ public class ShoppingList : MonoBehaviour
             int i = 0;
 
             foreach (int productCode in items) {
-                int index = productCode - 2;
 
-                GameObject product = Instantiate(
-                    checkout.GetComponent<Checkout>().experimentManager.Inventory[index],
-                    gameObject.transform.position + new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f),
-                    Quaternion.identity
-                );
-                Destroy(product.GetComponent<BoxCollider>());
-                Destroy(product.GetComponent<CapsuleCollider>());
-                Destroy(product.GetComponent<Rigidbody>());
+                foreach (GameObject productPrefab in inventory) {
+                    if (productPrefab.GetComponent<ProductCode>().Code == productCode) {
 
-                product.transform.parent = transform;
-                product.transform.localRotation = Quaternion.Euler(57, 0, 0);
-                product.transform.localPosition = new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f);
-                product.transform.localScale -= new Vector3(0.9f, 0.9f, 0.9f);
+                        GameObject product = Instantiate(
+                            productPrefab,
+                            gameObject.transform.position + new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f),
+                            Quaternion.identity
+                        );
+                        Destroy(product.GetComponent<BoxCollider>());
+                        Destroy(product.GetComponent<CapsuleCollider>());
+                        Destroy(product.GetComponent<Rigidbody>());
 
-                shoppingList[i] = product;
+                        product.transform.parent = transform;
+                        product.transform.localRotation = Quaternion.Euler(57, 0, 0);
+                        product.transform.localPosition = new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f);
+                        product.transform.localScale -= new Vector3(0.9f, 0.9f, 0.9f);
 
-                i++;
+                        shoppingList[i] = product;
+
+                        i++;
+
+                    }
+                }
             }
 
             // Disable portal mode GUI while showing list
