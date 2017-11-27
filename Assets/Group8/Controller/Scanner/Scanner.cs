@@ -12,6 +12,7 @@ public class Scanner : MonoBehaviour {
     private Valve.VR.InteractionSystem.Hand hand;
     private ControllerMode.Mode currentMode;
     private bool isScanning = false;
+    private HashSet<int> scannedProductCodes = new HashSet<int>();
 
     void Start () {
         hand = Controller.GetComponent<Valve.VR.InteractionSystem.Hand>();
@@ -42,7 +43,7 @@ public class Scanner : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (currentMode != ControllerMode.Mode.Scanner) return;
         if (!isScanning) return;
@@ -51,6 +52,13 @@ public class Scanner : MonoBehaviour {
 
         if (layer != LayerMask.NameToLayer("Grabbable")) return;
 
-        Debug.Log(other.gameObject);
+        int productCode = other.gameObject.GetComponent<ProductCode>().Code;
+
+        if (!scannedProductCodes.Contains(productCode))
+        {
+            Debug.Log("Adding " + productCode);
+        }
+
+        scannedProductCodes.Add(productCode);
     }
 }
