@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/TutorialScene/TutorialRoom.unity
+    guid: 1b182a7c823dcc1419fa0d1d60e412fd
+  - enabled: 1
+    path: Assets/SupermarketInterior_v2/Scenes/Supermarket_01.unity
+    guid: e8a38ce024bda0649bc6f5f575f35bd3

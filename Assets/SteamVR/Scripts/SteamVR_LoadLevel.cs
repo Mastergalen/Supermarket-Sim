@@ -103,14 +103,15 @@ public class SteamVR_LoadLevel : MonoBehaviour
 	// Helper function to quickly and simply load a level from script.
 	public static void Begin(string levelName,
 		bool showGrid = false, float fadeOutTime = 0.5f,
-		float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f)
+		float r = 0.25f, float g = 0.78f, float b = 0.52f, float a = 1.0f)
+
 	{
 		var loader = new GameObject("loader").AddComponent<SteamVR_LoadLevel>();
 		loader.levelName = levelName;
-		loader.showGrid = showGrid;
+        loader.showGrid = showGrid;
 		loader.fadeOutTime = fadeOutTime;
 		loader.backgroundColor = new Color(r, g, b, a);
-		loader.Trigger();
+        loader.Trigger();
 	}
 
 	// Updates progress bar.
@@ -231,10 +232,12 @@ public class SteamVR_LoadLevel : MonoBehaviour
 	// Corourtine to handle all the steps across loading boundaries.
 	IEnumerator LoadLevel()
 	{
-		// Optionally rotate loading screen transform around the camera into view.
-		// We assume here that the loading screen is already facing toward the origin,
-		// and that the progress bar transform (if any) is a child and will follow along.
-		if (loadingScreen != null && loadingScreenDistance > 0.0f)
+        // Optionally rotate loading screen transform around the camera into view.
+        // We assume here that the loading screen is already facing toward the origin,
+        // and that the progress bar transform (if any) is a child and will follow along.
+        loadingScreen = Resources.Load("portal") as Texture;
+
+        if (loadingScreen != null && loadingScreenDistance > 0.0f)
 		{
 			// Wait until we have tracking.
 			var hmd = SteamVR_Controller.Input((int)OpenVR.k_unTrackedDeviceIndex_Hmd);
