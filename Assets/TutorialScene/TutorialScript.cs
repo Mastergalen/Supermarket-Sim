@@ -18,6 +18,7 @@ public class TutorialScript : MonoBehaviour
     private GameObject cashout;
     private GameObject robot;
     private Player player = null;
+    private Animator anim;
     private Vector3 robotTarget = new Vector3(-5.48f, 0, 0);
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
@@ -31,13 +32,12 @@ public class TutorialScript : MonoBehaviour
         
         //enable teleport point 1
         teleportAreas[0].SetActive(true);
+        anim = robot.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float step = 0.001f * Time.deltaTime;
-        robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, step);
 
         foreach (Hand hand in player.hands)
         {
@@ -65,6 +65,19 @@ public class TutorialScript : MonoBehaviour
             }
         }
 
+        //float step = 0.001f * Time.deltaTime;
+        if (robot.transform.position != robotTarget)
+        {
+            anim.SetInteger("Speed", 2);
+            robot.transform.rotation = Quaternion.LookRotation(robotTarget - robot.transform.position);      
+                 
+        }
+        else
+        {
+            anim.SetInteger("Speed", 0);
+        }
+        
+        robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.05f);
     }
 
     private void OnTriggerEnter(Collider collisionInfo)
@@ -122,10 +135,6 @@ public class TutorialScript : MonoBehaviour
             {
                 teleportAreas[i].SetActive(true);
                 gameObject.GetComponent<BoxCollider>().center = new Vector3(teleportAreas[i].transform.position.x, 1.5f, teleportAreas[i].transform.position.z);
-                robot.transform.position = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
-                robot.transform.eulerAngles = new Vector3(0, 180, 0);
-                //Vector3 robotTarget = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
-                //MoveRobot(robotTarget);
                 robotTarget = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
             }
             else
