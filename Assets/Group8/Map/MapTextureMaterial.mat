@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MapMaterial
+  m_Name: MapTextureMaterial
   m_Shader: {fileID: 4800000, guid: 11e510dace8c9fe4a9eaf82a3584c5c8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
