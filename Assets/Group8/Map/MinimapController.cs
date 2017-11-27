@@ -10,6 +10,12 @@ public class MinimapController : MonoBehaviour {
     private HashSet<int> scannedProductCodes = new HashSet<int>();
     private float markerSpawnHeight = 8.15f;
     private int mapOnlyLayerId = 12; // This layer won't be rendered to the VRCamera
+    private GameObject Notifications;
+
+    void Start()
+    {
+        Notifications = GameObject.FindGameObjectWithTag("HUD");
+    }
 
     public void AddProductCode(int productCode)
     {
@@ -26,6 +32,8 @@ public class MinimapController : MonoBehaviour {
             {
                 AddMapMarker(obj);
             }
+
+            Notifications.GetComponent<Notifications>().DisplayMessage("Added scanned items to minimap");
         }
 
         scannedProductCodes.Add(productCode);
