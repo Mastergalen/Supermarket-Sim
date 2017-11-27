@@ -69,15 +69,13 @@ public class TutorialScript : MonoBehaviour
         if (robot.transform.position != robotTarget)
         {
             anim.SetInteger("Speed", 2);
-            robot.transform.rotation = Quaternion.LookRotation(robotTarget - robot.transform.position);      
-                 
+            robot.transform.rotation = Quaternion.LookRotation(robotTarget - robot.transform.position);
+            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.05f);
         }
         else
         {
             anim.SetInteger("Speed", 0);
         }
-        
-        robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.05f);
     }
 
     private void OnTriggerEnter(Collider collisionInfo)
