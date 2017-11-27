@@ -49,7 +49,7 @@ namespace UCL.COMPGV07{
         public int[] ItemsToCollect { get; private set; }
         public List<Purchase> ItemsCollected { get; private set; }
 
-        private List<int> itemsOutstanding;
+        public List<int> itemsOutstanding;
 
         public void Start()
         {
