@@ -8,6 +8,7 @@ public class ShoppingList : MonoBehaviour
     public GameObject checkout;
     private GameObject[] inventory;
     private int[] items;
+    private List<int> outstanding;
     private bool hasSpawned;
     private Valve.VR.InteractionSystem.Hand hand;
     private GameObject[] shoppingList;
@@ -26,6 +27,7 @@ public class ShoppingList : MonoBehaviour
         if (!hasSpawned && hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu)) {
             UCL.COMPGV07.Logging.KeyDown();
             items = checkout.GetComponent<Checkout>().experimentManager.ItemsToCollect;
+            outstanding = checkout.GetComponent<Checkout>().experimentManager.itemsOutstanding;
             int numberOfItems = items.Length;
             shoppingList = new GameObject[numberOfItems];
 
@@ -34,7 +36,7 @@ public class ShoppingList : MonoBehaviour
             foreach (int productCode in items) {
 
                 foreach (GameObject productPrefab in inventory) {
-                    if (productPrefab.GetComponent<ProductCode>().Code == productCode) {
+                    if (productPrefab.GetComponent<ProductCode>().Code == productCode && outstanding.Contains(productCode)) {
 
                         GameObject product = Instantiate(
                             productPrefab,
