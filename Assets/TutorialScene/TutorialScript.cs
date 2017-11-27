@@ -15,6 +15,7 @@ public class TutorialScript : MonoBehaviour
     private GameObject food;
     private GameObject cashout;
     private GameObject robot;
+    private Vector3 robotTarget = new Vector3(-5.48f, 0, 0);
 
     // Use this for initialization
     void Start()
@@ -27,7 +28,8 @@ public class TutorialScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        float step = 0.001f * Time.deltaTime;
+        robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, step);
     }
 
     private void OnTriggerEnter(Collider collisionInfo)
@@ -77,6 +79,7 @@ public class TutorialScript : MonoBehaviour
         robot = GameObject.Find("RobotModel");
         robot.transform.position = new Vector3(-5.48f, 0, 0);
         robot.transform.eulerAngles = new Vector3(0, 134, 0);
+
     }
 
     private void SetTargetTeleport()
@@ -89,6 +92,9 @@ public class TutorialScript : MonoBehaviour
                 gameObject.GetComponent<BoxCollider>().center = new Vector3(teleportAreas[i].transform.position.x, 1.5f, teleportAreas[i].transform.position.z);
                 robot.transform.position = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
                 robot.transform.eulerAngles = new Vector3(0, 180, 0);
+                //Vector3 robotTarget = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
+                //MoveRobot(robotTarget);
+                robotTarget = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
             }
             else
             {
