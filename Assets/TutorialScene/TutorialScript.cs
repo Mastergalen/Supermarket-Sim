@@ -72,7 +72,7 @@ public class TutorialScript : MonoBehaviour
         else
         {
             anim.SetInteger("Speed", 0);
-            robot.transform.rotation = Quaternion.Slerp(robot.transform.rotation, Quaternion.LookRotation(GameObject.Find("Player").transform.position - robot.transform.position), Time.deltaTime * 3);
+            robot.transform.rotation = Quaternion.Slerp(robot.transform.rotation, Quaternion.LookRotation(GameObject.Find("VRCamera").transform.position - robot.transform.position), Time.deltaTime * 3);
         }
     }
 
