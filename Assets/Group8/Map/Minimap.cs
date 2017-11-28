@@ -21,7 +21,7 @@ public class Minimap : MonoBehaviour {
 
         if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            UCL.COMPGV07.Logging.KeyDown();
+			UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
         }
 
         if (hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))

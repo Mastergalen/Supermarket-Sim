@@ -25,11 +25,10 @@ public class ControllerMode : MonoBehaviour {
 
         if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) {
 			Vector2 touchpad = hand.controller.GetAxis();
-            PortalGun portalGun = GetComponent<PortalGun>();
 
 			if (touchpad.y > 0.7f)
 			{
-                UCL.COMPGV07.Logging.KeyDown();
+				UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
                 Debug.Log ("Grab Mode");
 				currentMode = Mode.Grab;
                 SetGUI("Grab");
@@ -37,7 +36,7 @@ public class ControllerMode : MonoBehaviour {
 
             if (touchpad.y < -0.7f)
             {
-                UCL.COMPGV07.Logging.KeyDown();
+				UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
                 Debug.Log("Show Map");
 
                 GetComponent<Minimap>().CreateMinimap();
@@ -45,7 +44,7 @@ public class ControllerMode : MonoBehaviour {
 
             if (touchpad.x > 0.7f)
 			{
-                UCL.COMPGV07.Logging.KeyDown();
+				UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
                 Debug.Log ("Portal Gun");
 				currentMode = Mode.PortalGun;
                 SetGUI("Portal");
@@ -53,7 +52,7 @@ public class ControllerMode : MonoBehaviour {
 
             if (touchpad.x < -0.7f)
             {
-                UCL.COMPGV07.Logging.KeyDown();
+				UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
                 Debug.Log("Scanner Mode");
                 currentMode = Mode.Scanner;
                 SetGUI("Scanner");

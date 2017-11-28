@@ -24,7 +24,7 @@ public class PortalGun : MonoBehaviour {
 		if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
 		{
             Debug.Log("Shoot portal gun");
-			UCL.COMPGV07.Logging.KeyDown();
+			UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
 
 			ShootPortal();
 		}

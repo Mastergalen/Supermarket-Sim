@@ -32,7 +32,7 @@ public class Scanner : MonoBehaviour {
 
         if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
         {
-            UCL.COMPGV07.Logging.KeyDown();
+			UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
         }
 
 

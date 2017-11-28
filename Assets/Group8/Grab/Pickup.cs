@@ -22,7 +22,7 @@ public class Pickup : MonoBehaviour {
 
         if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            UCL.COMPGV07.Logging.KeyDown();
+			UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
             if (collidingObject)
             {
                 Grab(collidingObject);
