@@ -113,11 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &36113156 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1149428224841798, guid: 114626d615b401343af02367dc012729,
-    type: 2}
-  m_PrefabInternal: {fileID: 773588671}
 --- !u!1001 &68423744
 Prefab:
   m_ObjectHideFlags: 0
@@ -172,7 +167,6 @@ GameObject:
   - component: {fileID: 149343709}
   - component: {fileID: 149343708}
   - component: {fileID: 149343713}
-  - component: {fileID: 149343712}
   m_Layer: 0
   m_Name: Checkout
   m_TagString: Untagged
@@ -298,20 +292,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &149343712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 149343707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8a979e78abf1547b20db1e70ef88b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Head: {fileID: 2016594036}
-  Playspace: {fileID: 36113156}
-  GroupNumber: 8
 --- !u!114 &149343713
 MonoBehaviour:
   m_ObjectHideFlags: 0

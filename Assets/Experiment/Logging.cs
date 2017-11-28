@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -39,13 +40,13 @@ namespace UCL.COMPGV07
         /// <summary>
         /// The GameObject to which the eyes and ears are attached. This moves around with the users real head, relative to the playspace.
         /// </summary>
-        public GameObject Head;
+        private GameObject Head;
 
         /// <summary>
         /// The GameObject to which the head is relative in the real world. This will move around, taking the head with it, to allow the user
         /// to explore the whole virtual space.
         /// </summary>
-        public GameObject Playspace;
+        private GameObject Playspace;
 
         /// <summary>
         /// The number of the group running this study.
@@ -99,9 +100,17 @@ namespace UCL.COMPGV07
         private static Logging singleton;
         private FileStream file;
 
+		void Awake()
+		{
+			DontDestroyOnLoad(transform.gameObject);
+			SceneManager.activeSceneChanged += OnSceneChange;
+		}
+
         // Use this for initialization
         void Start()
         {
+			UpdateGameObjecReferences();
+
             if(Head == null)
             {
                 Debug.LogError("Logging Head GameObject must be set");
@@ -124,6 +133,7 @@ namespace UCL.COMPGV07
             trial.session = DateTime.Now;
             trial.startTime = Time.time;           
         }
+			
 
         // Update is called once per frame
         void LateUpdate()
@@ -170,5 +180,20 @@ namespace UCL.COMPGV07
 
             return i;
         }
+
+		private void OnSceneChange(Scene previousScene, Scene changedScene) {
+			UpdateGameObjecReferences();
+		}
+
+		private void UpdateGameObjecReferences() {
+			Head = GameObject.Find("VRCamera");
+
+			if (Head == null)
+			{
+				Head = GameObject.Find("FollowHead");
+			}
+
+			Playspace = GameObject.Find("PlayVolume");
+		}
     }
 }
