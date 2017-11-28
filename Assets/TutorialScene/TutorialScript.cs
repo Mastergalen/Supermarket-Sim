@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections;
 using UnityEngine;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 public class TutorialScript : MonoBehaviour
 {
-
     public GameObject[] teleportAreas = new GameObject[5];
-    private int tutorialPart = 0;
 
     private GameObject portal;
     private GameObject throwable;
@@ -20,22 +15,21 @@ public class TutorialScript : MonoBehaviour
     private Player player = null;
     private Animator anim;
     private Vector3 robotTarget = new Vector3(-5.48f, 0, 0);
+    private int tutorialPart = 0;
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
     private Valve.VR.InteractionSystem.Hand hand;
 
-    // Use this for initialization
     void Start()
     {
         InitTutorial();
-        
-        //enable teleport point 1
+
+        // Enable teleport point 1
         teleportAreas[0].SetActive(true);
         anim = robot.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -65,41 +59,54 @@ public class TutorialScript : MonoBehaviour
             }
         }
 
-        //float step = 0.001f * Time.deltaTime;
+
+        // Robot walk
         if (robot.transform.position != robotTarget)
         {
-            anim.SetInteger("Speed", 2);
-            robot.transform.rotation = Quaternion.LookRotation(robotTarget - robot.transform.position);
-            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.05f);
+            // 0 for still, 1 for walk, 2 for run, 3 for jump
+            anim.SetInteger("Speed", 1);
+            robot.transform.rotation = Quaternion.Slerp(robot.transform.rotation, Quaternion.LookRotation(robotTarget - robot.transform.position), Time.deltaTime * 3);
+            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.025f);
         }
+        // Robot stop and face player
         else
         {
             anim.SetInteger("Speed", 0);
+            robot.transform.rotation = Quaternion.Slerp(robot.transform.rotation, Quaternion.LookRotation(GameObject.Find("Player").transform.position - robot.transform.position), Time.deltaTime * 3);
         }
     }
 
     private void OnTriggerEnter(Collider collisionInfo)
     {
-        if (collisionInfo.GetComponent<Collider>().name == "HeadCollider") //enable throwables tutorial
+        // Check for correct equipment before enabling tutorials
+        if (collisionInfo.GetComponent<Collider>().name == "HeadCollider")
         {
             teleportAreas[tutorialPart].SetActive(false);
-            if (tutorialPart == 1) //portal gun tutorial
+
+            // Portal gun tutorial
+            if (tutorialPart == 1)
             {
                 cashout.SetActive(true);
                 PortalGunTutorial();
             }
-            if (tutorialPart == 2) //throwable tutorial
+            // Throwables tutorial
+            if (tutorialPart == 2)
             {
                 food.SetActive(true);
                 throwable.SetActive(true);
                 ThrowableTutorial();
+            }
+            // Minimap tutorial
+            if (tutorialPart == 3)
+            {
+                MinimapTutorial();
             }
             tutorialPart++;
             SetTargetTeleport();
         }
     }
 
-    //disables all teleport points and hides objects that are required for further tutorial parts
+    // Start tutorial: disables teleport points and hides objects for other parts
     private void InitTutorial()
     {
         player = Player.instance;
@@ -108,6 +115,7 @@ public class TutorialScript : MonoBehaviour
         {
             area.SetActive(false);
         }
+
         portal = GameObject.Find("Portal_01");
         portal.SetActive(false);
 
@@ -125,6 +133,7 @@ public class TutorialScript : MonoBehaviour
         robot.transform.eulerAngles = new Vector3(0, 134, 0);
     }
 
+    // Set fixed telport areas for tutorial
     private void SetTargetTeleport()
     {
         for (int i = 0; i < teleportAreas.Length; i++)
@@ -142,28 +151,34 @@ public class TutorialScript : MonoBehaviour
         }
     }
 
+    // TODO Portal gun tutorial
     private void PortalGunTutorial()
     {
         ShowButtonHint(touchpadButton, "Press RIGHT on touchpad to change to Portal Gun Mode");
-           //TODO portal gun tutorial
     }
 
+    // TODO Throwables tutorial
     private void ThrowableTutorial()
     {
         HideButtonHint(touchpadButton);
         HideButtonHint(triggerButton);
         ShowButtonHint(touchpadButton, "Press UP on touchpad to change to Grab Mode");
 
-        //TODO tutorial for throwables
-
-        ActivatePortal(); //throwable tutorial part done - can go to supermarket now! :)
+        ActivatePortal();
     }
 
+    // TODO Minimap tutorial
+    private void MinimapTutorial()
+    {
+        // Proceed to supermarket
+        ActivatePortal();
+    }
+
+    // Render portal
     IEnumerator PortalEffect(float time)
     {
         Vector3 originalScale = portal.transform.localScale;
         Vector3 destinationScale = new Vector3(0.14f, 0.14f, 0.5f);
-
         float currentTime = 0.0f;
 
         do
@@ -176,6 +191,7 @@ public class TutorialScript : MonoBehaviour
         teleportAreas[tutorialPart].SetActive(true);
     }
 
+    // Teleport to supermarket via portal
     private void ActivatePortal()
     {
         Destroy(gameObject.GetComponent<BoxCollider>());
