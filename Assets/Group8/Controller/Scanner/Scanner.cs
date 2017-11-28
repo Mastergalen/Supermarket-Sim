@@ -9,13 +9,29 @@ public class Scanner : MonoBehaviour {
     public GameObject ScannerSprite;
     public GameObject Controller;
     public GameObject Player;
+	public GameObject ScanningArea;
 
     private Valve.VR.InteractionSystem.Hand hand;
     private ControllerMode.Mode currentMode;
     private bool isScanning = false;
+	private Bounds scanningAreaBounds;
+	private GameObject Notifications;
     
     void Start () {
         hand = Controller.GetComponent<Valve.VR.InteractionSystem.Hand>();
+		Notifications = GameObject.FindGameObjectWithTag("HUD");
+
+		if (ScanningArea == null)
+		{
+			Debug.LogError("Scanning area not set");
+		}
+
+		if (Notifications == null)
+		{
+			Debug.LogError("Player HUD not set");
+		}
+
+		scanningAreaBounds = ScanningArea.GetComponent<Renderer>().bounds;
     }
 	
 	void Update () {
@@ -25,7 +41,14 @@ public class Scanner : MonoBehaviour {
 
         if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-            Debug.Log("Scanning");
+			if (!scanningAreaBounds.Contains(Controller.transform.position))
+			{
+				Debug.Log ("Not in scanning area");
+				Notifications.GetComponent<Notifications>().DisplayMessage("Can't scan outside starting area");
+				return;
+			}
+
+			Debug.Log("Scanning");
             isScanning = true;
             ScannerSprite.SetActive(true);
         }
@@ -34,7 +57,6 @@ public class Scanner : MonoBehaviour {
         {
 			UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
         }
-
 
         if (hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
         {
