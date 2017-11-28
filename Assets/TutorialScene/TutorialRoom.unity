@@ -288,7 +288,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Hello people! \nWelcome to \nsupermarket me"
+  m_Text: Hello! Teleport to me using the grip button.
 --- !u!222 &9116532
 CanvasRenderer:
   m_ObjectHideFlags: 0

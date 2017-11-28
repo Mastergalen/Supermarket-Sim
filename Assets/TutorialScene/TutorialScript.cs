@@ -2,6 +2,8 @@
 using UnityEngine;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
+using UnityEngine.UI;
+
 
 public class TutorialScript : MonoBehaviour
 {
@@ -155,6 +157,7 @@ public class TutorialScript : MonoBehaviour
     private void PortalGunTutorial()
     {
         ShowButtonHint(touchpadButton, "Press RIGHT on touchpad to change to Portal Gun Mode");
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select the portal gun by pressing left on the pad. Fire the portal gun with the trigger.";
     }
 
     // TODO Throwables tutorial
@@ -165,11 +168,14 @@ public class TutorialScript : MonoBehaviour
         ShowButtonHint(touchpadButton, "Press UP on touchpad to change to Grab Mode");
 
         ActivatePortal();
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release objects by letting go of the trigger. Try throwing something!";
     }
 
-    // TODO Minimap tutorial
+    // TODO Minimap tutorials
     private void MinimapTutorial()
     {
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Bring up the map by holding the bottom of the pad.";
+
         // Proceed to supermarket
         ActivatePortal();
     }
