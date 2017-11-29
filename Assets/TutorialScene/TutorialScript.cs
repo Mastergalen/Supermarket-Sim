@@ -6,22 +6,21 @@ using Valve.VR;
 using Valve.VR.InteractionSystem;
 using UnityEngine.UI;
 
-
-[Serializable]
-public class Clips
-{
-    public AudioClip NowTeleportTo;
-    public AudioClip SelectPortalGun;
-    public AudioClip SelectGrabMode;
-    public AudioClip LetsLearn;
-    public AudioClip GrabObjects;
-    public AudioClip LookAtBelly;
-    public AudioClip TeleportToPortal;
-    public AudioClip FireAway;
-}
-
 public class TutorialScript : MonoBehaviour
 {
+    [Serializable]
+    public class Clips
+    {
+        public AudioClip NowTeleportTo;
+        public AudioClip SelectPortalGun;
+        public AudioClip SelectGrabMode;
+        public AudioClip LetsLearn;
+        public AudioClip GrabObjects;
+        public AudioClip LookAtBelly;
+        public AudioClip TeleportToPortal;
+        public AudioClip FireAway;
+    }
+
     public GameObject[] teleportAreas = new GameObject[5];
     public GameObject bellyPortal;
     public Clips clips;

@@ -8,23 +8,22 @@ using System;
 
 [RequireComponent(typeof(Rigidbody))]
 
-[Serializable]
-public class Clips
-{
-    public AudioClip GoodJob;
-    public AudioClip ChangeToPortalGunMode;
-    public AudioClip ShootPortal;
-    public AudioClip ShowShoppingList;
-    public AudioClip NowLetsScan;
-    public AudioClip SelectScanner;
-    public AudioClip HoldToScan;
-    public AudioClip OpenMap;
-    public AudioClip GreatTheItems;
-    public AudioClip YourTask;
-    public AudioClip ByeBye;
-}
-
 public class SupermarketTutorial : MonoBehaviour {
+    [Serializable]
+    public class Clips
+    {
+        public AudioClip GoodJob;
+        public AudioClip ChangeToPortalGunMode;
+        public AudioClip ShootPortal;
+        public AudioClip ShowShoppingList;
+        public AudioClip NowLetsScan;
+        public AudioClip SelectScanner;
+        public AudioClip HoldToScan;
+        public AudioClip OpenMap;
+        public AudioClip GreatTheItems;
+        public AudioClip YourTask;
+        public AudioClip ByeBye;
+    }
 
     public Clips clips;
 
@@ -125,7 +124,7 @@ public class SupermarketTutorial : MonoBehaviour {
                     textComponent.text = "Great! The items you have scanned are blue dots. The green dot is you.";
                     tutorialPart = TutorialStep.Minimap;
                     RobotSpeak(clips.GreatTheItems);
-                    Invoke("StartTaskText", 3);
+                    Invoke("StartTaskText", 10);
                 }
             }
         }
@@ -151,7 +150,7 @@ public class SupermarketTutorial : MonoBehaviour {
         tutorialPart = TutorialStep.YourTask;
         RobotSpeak(clips.YourTask);
 
-        Invoke("RobotFlyAway", 15);
+        Invoke("RobotFlyAway", 13);
     }
 
     void RobotFlyAway()
