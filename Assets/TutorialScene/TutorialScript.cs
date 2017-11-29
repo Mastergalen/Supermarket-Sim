@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class TutorialScript : MonoBehaviour
 {
     public GameObject[] teleportAreas = new GameObject[5];
+    public GameObject bellyPortal;
 
     private GameObject portal;
     private GameObject throwable;
@@ -18,10 +19,10 @@ public class TutorialScript : MonoBehaviour
     private Animator anim;
     private Vector3 robotTarget = new Vector3(-5.48f, 0, 0);
     private int tutorialPart = 0;
+    private CheckoutPortal portalScript;
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
-    private Hand hand;
 
     void Start()
     {
@@ -46,9 +47,15 @@ public class TutorialScript : MonoBehaviour
                 if (touchpad.x > 0.7f)
                 {
                     HideButtonHint(touchpadButton);
-                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire the portal gun with the trigger.";
+                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire the portal gun with the trigger. Try shooting a portal now! Try to get it on the checkout :)";
                     ShowButtonHint(triggerButton, "Pull to shoot portal");
                 }
+            }
+
+            //checking for portal gun has been shot
+            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 2))
+            {
+                robotTarget = new Vector3(2f, 0, 4.41f);
             }
 
             //checking for grab mode change
@@ -62,6 +69,23 @@ public class TutorialScript : MonoBehaviour
                     ShowButtonHint(triggerButton, "Hold trigger to grab an object");
                 }
             }
+
+            //checking for portal gun has been shot
+            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 3))
+            {
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now look at your belly, and try dropping an object into it! Hint: Look at the portal you shot previously :P";
+                robotTarget = new Vector3(2f, 0, 4.41f);
+            }
+
+            //check for collision between a gameobject and belly portal
+            portalScript = (CheckoutPortal)bellyPortal.GetComponent(typeof(CheckoutPortal));
+            if (portalScript.Checker == true)
+            {
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Walk through the portal to go to the supermarket!";
+                // Proceed to supermarket
+                ActivatePortal();
+            }
+            portalScript.Checker = false;
         }
 
 
@@ -87,6 +111,12 @@ public class TutorialScript : MonoBehaviour
         if (collisionInfo.GetComponent<Collider>().name == "HeadCollider")
         {
             teleportAreas[tutorialPart].SetActive(false);
+
+            if(tutorialPart == 0)
+            {
+                robotTarget = new Vector3(-5.41f, 0, 4.41f);
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now teleport to the next point!";
+            }
 
             // Portal gun tutorial
             if (tutorialPart == 1)
@@ -148,7 +178,6 @@ public class TutorialScript : MonoBehaviour
             {
                 teleportAreas[i].SetActive(true);
                 gameObject.GetComponent<BoxCollider>().center = new Vector3(teleportAreas[i].transform.position.x, 1.5f, teleportAreas[i].transform.position.z);
-                robotTarget = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
             }
             else
             {
@@ -173,8 +202,6 @@ public class TutorialScript : MonoBehaviour
 
         GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Change to grab mode by pressing up on the touchpad.";
         
-        // Proceed to supermarket
-        ActivatePortal();
     }
 
     // TODO Minimap tutorials
