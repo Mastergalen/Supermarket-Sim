@@ -9,6 +9,8 @@ public class TutorialScript : MonoBehaviour
 {
     public GameObject[] teleportAreas = new GameObject[5];
     public GameObject bellyPortal;
+    public AudioClip[] audioRobot = new AudioClip[7];
+    private AudioSource audioSource;
 
     private GameObject portal;
     private GameObject throwable;
@@ -20,7 +22,7 @@ public class TutorialScript : MonoBehaviour
     private Vector3 robotTarget = new Vector3(-5.48f, 0, 0);
     private int tutorialPart = 0;
     private CheckoutPortal portalScript;
-    AudioSource audioSource;
+    
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
@@ -50,7 +52,7 @@ public class TutorialScript : MonoBehaviour
                 {
                     HideButtonHint(touchpadButton);
                     // You have to get the full path every time
-                    audioSource.Play();
+                    //audioSource.Play();
                     GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire using the trigger! Try to hit the checkout.";
                     ShowButtonHint(triggerButton, "Pull to shoot portal");
                 }
@@ -118,8 +120,15 @@ public class TutorialScript : MonoBehaviour
 
             if(tutorialPart == 0)
             {
-                robotTarget = new Vector3(-7.5f, 0, 4.4f);
+                /*robotTarget = new Vector3(-7.5f, 0, 4.4f);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = audioRobot[tutorialPart];
+                    audioSource.Play();
+                }*/
+                
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now teleport to the next point!";
+                RobotSpeak();
             }
 
             // Portal gun tutorial
@@ -245,6 +254,16 @@ public class TutorialScript : MonoBehaviour
         foreach (Hand h in player.hands)
         {
             ControllerButtonHints.HideTextHint(h, button);
+        }
+    }
+
+    private void RobotSpeak()
+    {
+ 
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = audioRobot[tutorialPart];
+            audioSource.Play();
         }
     }
 }
