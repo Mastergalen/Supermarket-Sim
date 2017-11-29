@@ -5,6 +5,8 @@ using Valve.VR;
 using Valve.VR.InteractionSystem;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Rigidbody))]
+
 public class SupermarketTutorial : MonoBehaviour {
 
     private Player player = null;
@@ -13,12 +15,14 @@ public class SupermarketTutorial : MonoBehaviour {
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
     private EVRButtonId shoppingListButton = EVRButtonId.k_EButton_ApplicationMenu;
+    private Text textComponent;
 
     // Use this for initialization
     void Start () {
         player = Player.instance;
+        textComponent = GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>();
 
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Good job!";
+        textComponent.text = "Good job!";
         Invoke("StartTutorialText", 2);
     }
 
@@ -35,14 +39,14 @@ public class SupermarketTutorial : MonoBehaviour {
                 if (touchpad.x > 0.7f)
                 {
                     // You have to get the full path every time
-                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now shoot the portal above the checkout. Try to make sure it is directly above it.";
+                    textComponent.text = "Now shoot the portal above the checkout. Try to make sure it is directly above it.";                    
                 }
             }
 
             //checking for portal gun has been shot
             if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == "portalGun"))
             {
-                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Once you are happy with the portal, hold the menu button to see your shopping list.";
+                textComponent.text = "Once you are happy with the portal, hold the menu button to see your shopping list.";
                 tutorialPart = "shoppingList";
                 ShowButtonHint(shoppingListButton, "Show Shopping List");
             }
@@ -51,7 +55,7 @@ public class SupermarketTutorial : MonoBehaviour {
             if (hand.controller.GetPressDown(shoppingListButton) && (tutorialPart == "shoppingList"))
             {
                 HideButtonHint(shoppingListButton);
-                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now let's scan some items.";
+                textComponent.text = "Now let's scan some items.";
                 ShowButtonHint(touchpadButton, "Press LEFT on touchpad to change to Scan Mode");
                 Invoke("ScannerTutorial", 2);
             }
@@ -64,7 +68,7 @@ public class SupermarketTutorial : MonoBehaviour {
                 {
                     // You have to get the full path every time
                     HideButtonHint(touchpadButton);
-                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Hold trigger to scan. Scan the items in front of me :)";
+                    textComponent.text = "Hold trigger to scan. Scan the items in front of me :)";
                     ShowButtonHint(triggerButton, "Hold to scan items.");
                 }
             }
@@ -72,7 +76,7 @@ public class SupermarketTutorial : MonoBehaviour {
             //checking for after scan button press
             if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == "scanner"))
             {
-                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Open the map by holding down on the touchpad.";
+                textComponent.text = "Open the map by holding down on the touchpad.";
                 tutorialPart = "map";
                 HideButtonHint(triggerButton);
                 ShowButtonHint(touchpadButton, "Hold DOWN on touchpad to change to show Map");
@@ -86,7 +90,7 @@ public class SupermarketTutorial : MonoBehaviour {
                 {
                     // You have to get the full path every time
                     HideButtonHint(touchpadButton);
-                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Great! The items you have scanned are blue dots. The green dot is you.";
+                    textComponent.text = "Great! The items you have scanned are blue dots. The green dot is you.";
                     Invoke("StartTaskText", 3);
                 }
             }
@@ -95,19 +99,40 @@ public class SupermarketTutorial : MonoBehaviour {
 
     void StartTutorialText()
     {
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Change to portal gun mode!";
+        textComponent.text = "Change to portal gun mode!";
         tutorialPart = "portalGun";
     }
 
     void ScannerTutorial()
     {
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select scanner by pressing left on the touchpad!";
+        textComponent.text = "Select scanner by pressing left on the touchpad!";
         tutorialPart = "scanner";
     }
 
     void StartTaskText()
     {
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Your task: collect 2 of each of these items. Use the map to find them. Put them in your belly and they will go to the checkout! Good luck!";
+        textComponent.text = "Your task: collect 2 of each of these items. Use the map to find them. Put them in your belly and they will go to the checkout! Good luck!";
+        tutorialPart = "robotFly";
+
+        Invoke("RobotFlyAway", 5);
+    }
+
+    void RobotFlyAway()
+    {
+        textComponent.text = "Bye Bye :)";
+
+        Animator animator = GetComponent<Animator>();
+        animator.SetBool("Flying", true);
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = new Vector3(0, 0.75f, 0);
+
+        Invoke("SelfDestruct", 10);
+    }
+
+    void SelfDestruct()
+    {
+        Destroy(gameObject);
     }
 
     private void ShowButtonHint(EVRButtonId button, string buttonText)
