@@ -68,20 +68,15 @@ public class TutorialScript : MonoBehaviour
             }
 
             //checking for grab mode change
-            if ((tutorialPart == 3))
+            if (hand.controller.GetPressDown(touchpadButton) && tutorialPart==3)
             {
-                RobotSpeak(4);
-                if (hand.controller.GetPressDown(touchpadButton))
+                Vector2 touchpad = hand.controller.GetAxis();
+                if (touchpad.y > 0.7f)
                 {
-                    {
-                        Vector2 touchpad = hand.controller.GetAxis();
-                        if (touchpad.y > 0.7f)
-                        {
-                            HideButtonHint(touchpadButton);
-                            GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release by letting go. Try throwing something!";
-                            ShowButtonHint(triggerButton, "Hold trigger to grab an object");
-                        }
-                    }
+                    HideButtonHint(touchpadButton);
+                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release by letting go. Try throwing something!";
+                    RobotSpeak(4);
+                    ShowButtonHint(triggerButton, "Hold trigger to grab an object");
                 }
             }
 
@@ -90,6 +85,8 @@ public class TutorialScript : MonoBehaviour
             {
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Look at your belly! Try dropping an object in, and look at the portal you shot on the checkout.";
                 RobotSpeak(5);
+                audioRobot[5] = null;
+                tutorialPart = 4;
             }
 
             //check for collision between a gameobject and belly portal
@@ -231,7 +228,7 @@ public class TutorialScript : MonoBehaviour
             yield return null;
         } while (currentTime <= time);
 
-        teleportAreas[tutorialPart].SetActive(true);
+        teleportAreas[3].SetActive(true);
     }
 
     // Teleport to supermarket via portal
