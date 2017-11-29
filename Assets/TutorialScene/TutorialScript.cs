@@ -17,6 +17,7 @@ public class Clips
     public AudioClip GrabObjects;
     public AudioClip LookAtBelly;
     public AudioClip TeleportToPortal;
+    public AudioClip FireAway;
 }
 
 public class TutorialScript : MonoBehaviour
@@ -37,7 +38,7 @@ public class TutorialScript : MonoBehaviour
     private TutorialPart tutorialPart = TutorialPart.Welcome;
     private CheckoutPortal portalScript;
 
-    private enum TutorialPart { Welcome, Teleport, PortalGunMode, PortalGunShoot, TeleportToGrab, GrabMode, Grab, Belly, TeleportSupermarket };
+    private enum TutorialPart { Welcome, Teleport, PortalGunMode, PortalGunShoot, TeleportToGrab, GrabMode, Grab, Belly, TeleportSupermarket, FireAway };
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
@@ -79,6 +80,7 @@ public class TutorialScript : MonoBehaviour
                     // You have to get the full path every time
                     //audioSource.Play();
                     GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire using the trigger! Try to hit the checkout.";
+                    RobotSpeak(clips.FireAway);
                     ShowButtonHint(triggerButton, "Pull to shoot portal");
 
                     tutorialPart = TutorialPart.PortalGunShoot;
