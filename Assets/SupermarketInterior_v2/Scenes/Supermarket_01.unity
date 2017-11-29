@@ -521,12 +521,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7de7a94450eec3e40818907f27afe705, type: 3}
   - {fileID: 8300000, guid: cf7cf507bbbb37749aa11e3977f491db, type: 3}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: e9b8fff086826cc4ab355246d225fcde, type: 3}
+  - {fileID: 8300000, guid: 4fad7146292a34b498a4442c14da9743, type: 3}
+  - {fileID: 8300000, guid: e40851781f6f7d949b4f944be1db29ea, type: 3}
+  - {fileID: 8300000, guid: 17b1e58d050a55640988c7f0239220eb, type: 3}
+  - {fileID: 8300000, guid: 83f60c8ae8e160e44a594a244a5c3b79, type: 3}
+  - {fileID: 8300000, guid: be79b7ded74ccd941bd8bc5fd119afb3, type: 3}
 --- !u!54 &570941263
 Rigidbody:
   m_ObjectHideFlags: 0
