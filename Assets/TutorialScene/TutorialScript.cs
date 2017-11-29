@@ -20,6 +20,7 @@ public class TutorialScript : MonoBehaviour
     private Vector3 robotTarget = new Vector3(-5.48f, 0, 0);
     private int tutorialPart = 0;
     private CheckoutPortal portalScript;
+    AudioSource audioSource;
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
@@ -31,6 +32,7 @@ public class TutorialScript : MonoBehaviour
         // Enable teleport point 1
         teleportAreas[0].SetActive(true);
         anim = robot.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -48,6 +50,7 @@ public class TutorialScript : MonoBehaviour
                 {
                     HideButtonHint(touchpadButton);
                     // You have to get the full path every time
+                    audioSource.Play();
                     GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire using the trigger! Try to hit the checkout.";
                     ShowButtonHint(triggerButton, "Pull to shoot portal");
                 }
