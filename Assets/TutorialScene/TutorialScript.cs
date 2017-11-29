@@ -68,15 +68,20 @@ public class TutorialScript : MonoBehaviour
             }
 
             //checking for grab mode change
-            if (hand.controller.GetPressDown(touchpadButton) && (tutorialPart == 3))
+            if ((tutorialPart == 3))
             {
-                Vector2 touchpad = hand.controller.GetAxis();
-                if (touchpad.y > 0.7f)
+                RobotSpeak(4);
+                if (hand.controller.GetPressDown(touchpadButton))
                 {
-                    HideButtonHint(touchpadButton);
-                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release by letting go. Try throwing something!";
-                    RobotSpeak(4);
-                    ShowButtonHint(triggerButton, "Hold trigger to grab an object");
+                    {
+                        Vector2 touchpad = hand.controller.GetAxis();
+                        if (touchpad.y > 0.7f)
+                        {
+                            HideButtonHint(touchpadButton);
+                            GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release by letting go. Try throwing something!";
+                            ShowButtonHint(triggerButton, "Hold trigger to grab an object");
+                        }
+                    }
                 }
             }
 
