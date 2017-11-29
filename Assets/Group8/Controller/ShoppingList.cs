@@ -27,7 +27,7 @@ public class ShoppingList : MonoBehaviour
         // While holding button instead of the if below
         if (!hasSpawned && hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
         {
-            UCL.COMPGV07.Logging.KeyDown();
+			UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
             items = checkout.GetComponent<Checkout>().experimentManager.ItemsToCollect;
             outstanding = checkout.GetComponent<Checkout>().experimentManager.itemsOutstanding;
             int numberOfItems = outstanding.Count;

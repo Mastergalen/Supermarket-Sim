@@ -240,7 +240,7 @@ namespace Valve.VR.InteractionSystem
             // Add UCL logging
             if(IsTeleportButtonDown(pointerHand))
             {
-                UCL.COMPGV07.Logging.KeyDown();
+				UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
             }
 
             foreach ( Hand hand in player.hands )
