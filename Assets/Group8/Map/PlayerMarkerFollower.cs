@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class PlayerMarkerFollower : MonoBehaviour {
 
-    public GameObject Player;
+    public GameObject VRCamera;
     public float markerHeight = 8.30f;
 	
 	void Start () {
-		if(Player == null)
+		if(VRCamera == null)
         {
-            Debug.LogError("Player not set");
+            Debug.LogError("VRCamera not set");
         }
 	}
 	
 	void Update () {
         transform.position = new Vector3(
-            Player.transform.position.x,
+            VRCamera.transform.position.x,
             markerHeight,
-            Player.transform.position.z
+            VRCamera.transform.position.z
         );
+
+        // Keep it flat
+        Vector3 playerOrientation = VRCamera.transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(90, 0, -playerOrientation.y + 90);
     }
 }
