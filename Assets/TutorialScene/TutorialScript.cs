@@ -62,6 +62,7 @@ public class TutorialScript : MonoBehaviour
             if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 2))
             {
                 robotTarget = new Vector3(3.3f, 0, 4.4f);
+                teleportAreas[2].SetActive(true);
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Let's learn to grab objects! Teleport here!";
                 RobotSpeak(3);
             }
@@ -120,30 +121,28 @@ public class TutorialScript : MonoBehaviour
         // Check for correct equipment before enabling tutorials
         if (collisionInfo.GetComponent<Collider>().name == "HeadCollider")
         {
-            teleportAreas[tutorialPart].SetActive(false);
+            
 
             if(tutorialPart == 0)
             {
+                teleportAreas[0].SetActive(false);
                 robotTarget = new Vector3(-7.5f, 0, 4.4f);
-                /*if (!audioSource.isPlaying)
-                {
-                    audioSource.clip = audioRobot[tutorialPart];
-                    audioSource.Play();
-                }*/
-                
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now teleport to the next point!";
+                teleportAreas[1].SetActive(true);
                 RobotSpeak(0);
             }
 
             // Portal gun tutorial
             if (tutorialPart == 1)
             {
+                teleportAreas[1].SetActive(false);
                 cashout.SetActive(true);
                 PortalGunTutorial();
             }
             // Throwables tutorial
             if (tutorialPart == 2)
             {
+                teleportAreas[2].SetActive(false);
                 food.SetActive(true);
                 throwable.SetActive(true);
                 ThrowableTutorial();
@@ -189,12 +188,7 @@ public class TutorialScript : MonoBehaviour
         {
             if (tutorialPart == i)
             {
-                teleportAreas[i].SetActive(true);
                 gameObject.GetComponent<BoxCollider>().center = new Vector3(teleportAreas[i].transform.position.x, 1.5f, teleportAreas[i].transform.position.z);
-            }
-            else
-            {
-                teleportAreas[i].SetActive(false);
             }
         }
     }
