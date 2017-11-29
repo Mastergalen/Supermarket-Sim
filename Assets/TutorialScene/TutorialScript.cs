@@ -1,17 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 using UnityEngine.UI;
 
 
+[Serializable]
+public class Clips
+{
+    public AudioClip NowTeleportTo;
+    public AudioClip SelectPortalGun;
+    public AudioClip SelectGrabMode;
+    public AudioClip LetsLearn;
+    public AudioClip GrabObjects;
+    public AudioClip LookAtBelly;
+    public AudioClip TeleportToPortal;
+}
+
 public class TutorialScript : MonoBehaviour
 {
     public GameObject[] teleportAreas = new GameObject[5];
     public GameObject bellyPortal;
-    public AudioClip[] audioRobot = new AudioClip[7];
-    private AudioSource audioSource;
+    public Clips clips;
 
+    private AudioSource audioSource;
     private GameObject portal;
     private GameObject throwable;
     private GameObject food;
@@ -20,12 +34,15 @@ public class TutorialScript : MonoBehaviour
     private Player player = null;
     private Animator anim;
     private Vector3 robotTarget = new Vector3(-5.48f, 0, 0);
-    private int tutorialPart = 0;
+    private TutorialPart tutorialPart = TutorialPart.Welcome;
     private CheckoutPortal portalScript;
-    
+
+    private enum TutorialPart { Welcome, Teleport, PortalGunMode, PortalGunShoot, TeleportToGrab, GrabMode, Grab, Belly, TeleportSupermarket };
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
+
+    private Dictionary<TutorialPart, GameObject> teleportAreaMap;
 
     void Start()
     {
@@ -35,6 +52,14 @@ public class TutorialScript : MonoBehaviour
         teleportAreas[0].SetActive(true);
         anim = robot.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+
+        teleportAreaMap = new Dictionary<TutorialPart, GameObject>()
+        {
+            { TutorialPart.Welcome, teleportAreas[0]},
+            { TutorialPart.Teleport, teleportAreas[1]},
+            { TutorialPart.TeleportToGrab, teleportAreas[2]},
+            { TutorialPart.TeleportSupermarket, teleportAreas[3]},
+        };
     }
 
     void Update()
@@ -45,7 +70,7 @@ public class TutorialScript : MonoBehaviour
             if (hand.controller == null) break;
 
             //checking for portal gun mode change
-            if (hand.controller.GetPressDown(touchpadButton) && (tutorialPart == 2))
+            if (hand.controller.GetPressDown(touchpadButton) && (tutorialPart == TutorialPart.PortalGunMode))
             {
                 Vector2 touchpad = hand.controller.GetAxis();
                 if (touchpad.x > 0.7f)
@@ -55,46 +80,56 @@ public class TutorialScript : MonoBehaviour
                     //audioSource.Play();
                     GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire using the trigger! Try to hit the checkout.";
                     ShowButtonHint(triggerButton, "Pull to shoot portal");
+
+                    tutorialPart = TutorialPart.PortalGunShoot;
+                    SetTargetTeleport();
                 }
             }
 
             //checking for portal gun has been shot
-            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 2))
+            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialPart.PortalGunShoot))
             {
                 robotTarget = new Vector3(3.3f, 0, 4.4f);
                 teleportAreas[2].SetActive(true);
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Let's learn to grab objects! Teleport here!";
-                RobotSpeak(3);
+                RobotSpeak(clips.LetsLearn);
+
+                tutorialPart = TutorialPart.TeleportToGrab;
+                SetTargetTeleport();
             }
 
             //checking for grab mode change
-            if (hand.controller.GetPressDown(touchpadButton) && tutorialPart==3)
+            if (hand.controller.GetPressDown(touchpadButton) && tutorialPart== TutorialPart.GrabMode)
             {
                 Vector2 touchpad = hand.controller.GetAxis();
                 if (touchpad.y > 0.7f)
                 {
                     HideButtonHint(touchpadButton);
                     GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release by letting go. Try throwing something!";
-                    RobotSpeak(4);
+                    RobotSpeak(clips.GrabObjects);
                     ShowButtonHint(triggerButton, "Hold trigger to grab an object");
+
+                    tutorialPart = TutorialPart.Grab;
+                    SetTargetTeleport();
                 }
             }
 
-            //checking for portal gun has been shot
-            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 3))
+            // Belly portal
+            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialPart.Grab))
             {
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Look at your belly! Try dropping an object in, and look at the portal you shot on the checkout.";
-                RobotSpeak(5);
-                audioRobot[5] = null;
-                tutorialPart = 4;
+                RobotSpeak(clips.LookAtBelly);
+
+                tutorialPart = TutorialPart.Belly;
+                SetTargetTeleport();
             }
 
             //check for collision between a gameobject and belly portal
             portalScript = (CheckoutPortal)bellyPortal.GetComponent(typeof(CheckoutPortal));
-            if (portalScript.CheckObjectTeleported == true)
+            if (tutorialPart == TutorialPart.Belly && portalScript.CheckObjectTeleported == true)
             {
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Teleport to the portal, then walk through it to go to the supermarket!";
-                RobotSpeak(6);
+                RobotSpeak(clips.TeleportToPortal);
                 // Proceed to supermarket
                 ActivatePortal();
             }
@@ -123,26 +158,24 @@ public class TutorialScript : MonoBehaviour
         // Check for correct equipment before enabling tutorials
         if (collisionInfo.GetComponent<Collider>().name == "HeadCollider")
         {
-            
-
-            if(tutorialPart == 0)
+            if(tutorialPart == TutorialPart.Welcome)
             {
                 teleportAreas[0].SetActive(false);
                 robotTarget = new Vector3(-7.5f, 0, 4.4f);
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now teleport to the next point!";
+                RobotSpeak(clips.NowTeleportTo);
                 teleportAreas[1].SetActive(true);
-                RobotSpeak(0);
+                tutorialPart = TutorialPart.Teleport;
             }
-
             // Portal gun tutorial
-            if (tutorialPart == 1)
+            else if (tutorialPart == TutorialPart.Teleport)
             {
                 teleportAreas[1].SetActive(false);
                 cashout.SetActive(true);
                 PortalGunTutorial();
             }
             // Throwables tutorial
-            if (tutorialPart == 2)
+            else if (tutorialPart == TutorialPart.TeleportToGrab)
             {
                 teleportAreas[2].SetActive(false);
                 food.SetActive(true);
@@ -150,9 +183,8 @@ public class TutorialScript : MonoBehaviour
                 ThrowableTutorial();
             }
 
-            tutorialPart++;
             SetTargetTeleport();
-            teleportAreas[3].SetActive(false);
+            teleportAreaMap[TutorialPart.TeleportSupermarket].SetActive(false);
         }
     }
 
@@ -186,24 +218,27 @@ public class TutorialScript : MonoBehaviour
     // Set fixed telport areas for tutorial
     private void SetTargetTeleport()
     {
-        for (int i = 0; i < teleportAreas.Length; i++)
+        GameObject teleportArea;
+        teleportAreaMap.TryGetValue(tutorialPart, out teleportArea);
+
+        if (teleportArea == null)
         {
-            if (tutorialPart == i)
-            {
-                gameObject.GetComponent<BoxCollider>().center = new Vector3(teleportAreas[i].transform.position.x, 1.5f, teleportAreas[i].transform.position.z);
-            }
+            Debug.LogWarning("Teleport area was null for " + tutorialPart);
+        } else
+        {
+            gameObject.GetComponent<BoxCollider>().center = new Vector3(teleportArea.transform.position.x, 1.5f, teleportArea.transform.position.z);
         }
     }
 
-    // TODO Portal gun tutorial
     private void PortalGunTutorial()
     {
         ShowButtonHint(touchpadButton, "Press RIGHT on touchpad to change to Portal Gun Mode");
         GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select portal gun by pressing right on the touchpad.";
-        RobotSpeak(1);
+        RobotSpeak(clips.SelectPortalGun);
+        tutorialPart = TutorialPart.PortalGunMode;
+        SetTargetTeleport();
     }
 
-    // TODO Throwables tutorial
     private void ThrowableTutorial()
     {
         HideButtonHint(touchpadButton);
@@ -211,7 +246,9 @@ public class TutorialScript : MonoBehaviour
         ShowButtonHint(touchpadButton, "Press UP on touchpad to change to Grab Mode");
 
         GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select grab mode by pressing up on the touchpad.";
-        RobotSpeak(2);
+        RobotSpeak(clips.SelectGrabMode);
+        tutorialPart = TutorialPart.GrabMode;
+        SetTargetTeleport();
     }
 
     // Render portal
@@ -228,7 +265,7 @@ public class TutorialScript : MonoBehaviour
             yield return null;
         } while (currentTime <= time);
 
-        teleportAreas[3].SetActive(true);
+        teleportAreaMap[TutorialPart.TeleportSupermarket].SetActive(true);
     }
 
     // Teleport to supermarket via portal
@@ -239,7 +276,10 @@ public class TutorialScript : MonoBehaviour
         portal.SetActive(true);
 
         StartCoroutine(PortalEffect(1.5f));
-        teleportAreas[3].SetActive(true);
+
+        tutorialPart = TutorialPart.TeleportSupermarket;
+        SetTargetTeleport();
+        teleportAreaMap[TutorialPart.TeleportSupermarket].SetActive(true);
     }
 
     private void ShowButtonHint(EVRButtonId button, string buttonText)
@@ -258,18 +298,15 @@ public class TutorialScript : MonoBehaviour
         }
     }
 
-    private void RobotSpeak(int audioNumber)
+    private void RobotSpeak(AudioClip clip)
     { 
-        if (!audioSource.isPlaying)
+        audioSource.clip = clip;
+
+        if (audioSource.clip == null)
         {
-            audioSource.clip = audioRobot[audioNumber];
-
-            if(audioSource.clip == null)
-            {
-                Debug.LogError("Audio clip is null");
-            }
-
-            audioSource.Play();
+            Debug.LogError("Audio clip is null");
         }
+
+        audioSource.Play();
     }
 }
