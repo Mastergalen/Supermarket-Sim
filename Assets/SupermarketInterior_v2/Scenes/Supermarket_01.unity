@@ -517,6 +517,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74af7b6fb64e91545891bb45a33408c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioRobot:
+  - {fileID: 8300000, guid: 7de7a94450eec3e40818907f27afe705, type: 3}
+  - {fileID: 8300000, guid: cf7cf507bbbb37749aa11e3977f491db, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!54 &570941263
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -614,7 +624,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Hello! Teleport to me using the grip button.
+  m_Text: '
+
+'
 --- !u!222 &849312148
 CanvasRenderer:
   m_ObjectHideFlags: 0

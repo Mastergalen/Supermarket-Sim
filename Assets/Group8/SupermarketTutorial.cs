@@ -9,21 +9,48 @@ using UnityEngine.UI;
 
 public class SupermarketTutorial : MonoBehaviour {
 
+    public AudioClip[] audioRobot = new AudioClip[8];
+
     private Player player = null;
-    private string tutorialPart;
+    private TutorialStep tutorialPart;
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
     private EVRButtonId shoppingListButton = EVRButtonId.k_EButton_ApplicationMenu;
     private Text textComponent;
+    private AudioSource audioSource;
+
+    private enum TutorialStep {GoodJob, PortalGunMode, ShootPortal, ShoppingList, ScanMode, ScanItems, MinimapMode, Minimap}
+
+    private Dictionary<TutorialStep, AudioClip> audioMap;
 
     // Use this for initialization
     void Start () {
         player = Player.instance;
         textComponent = GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>();
 
+        tutorialPart = TutorialStep.GoodJob;
         textComponent.text = "Good job!";
+        RobotSpeak(TutorialStep.GoodJob);
+
+        tutorialPart = TutorialStep.PortalGunMode;
         Invoke("StartTutorialText", 2);
+        audioSource = GetComponent<AudioSource>();
+
+        audioMap = new Dictionary<TutorialStep, AudioClip>()
+        {
+            {TutorialStep.GoodJob, audioRobot[0]},
+            {TutorialStep.PortalGunMode, audioRobot[1]},
+            {TutorialStep.ShootPortal, audioRobot[2]},
+            {TutorialStep.ShoppingList, audioRobot[3]},
+            {TutorialStep.ScanMode, audioRobot[4]},
+            {TutorialStep.ScanItems, audioRobot[5]},
+            {TutorialStep.MinimapMode, audioRobot[6]},
+            {TutorialStep.Minimap, audioRobot[7]}
+
+        };
+
+        
     }
 
     // Update is called once per frame
@@ -39,6 +66,7 @@ public class SupermarketTutorial : MonoBehaviour {
                 if (touchpad.x > 0.7f)
                 {
                     // You have to get the full path every time
+                    
                     textComponent.text = "Now shoot the portal above the checkout. Try to make sure it is directly above it.";                    
                 }
             }
@@ -148,6 +176,22 @@ public class SupermarketTutorial : MonoBehaviour {
         foreach (Hand h in player.hands)
         {
             ControllerButtonHints.HideTextHint(h, button);
+        }
+    }
+
+
+    private void RobotSpeak(TutorialStep audioStep)
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = audioMap[audioStep];
+
+            if (audioSource.clip == null)
+            {
+                Debug.LogError("Audio clip is null");
+            }
+
+            audioSource.Play();
         }
     }
 }
