@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CheckoutPortal : MonoBehaviour {
     public GameObject portalPrefab;
@@ -9,6 +10,20 @@ public class CheckoutPortal : MonoBehaviour {
 
     public float portalOutSpeed = 3.0f;
     public float spawnOffset = 0.4f;
+
+    private bool check;
+
+    public bool Checker
+    {
+        get
+        {
+            return check;
+        }
+        set
+        {
+            check = value;
+        }
+    }
 
     private float releaseCooldown = 0.5f; // Within this many seconds, the dropped item will be teleportable
     private Vector3 targetPortalForward;
@@ -61,6 +76,7 @@ public class CheckoutPortal : MonoBehaviour {
         Rigidbody rb = collidingObject.GetComponent<Rigidbody>();
 
         collidingObject.transform.position = targetPortal.transform.position + (targetPortalForward * spawnOffset);
+        check = true;
 
         rb.velocity = targetPortalForward * portalOutSpeed;
         rb.angularVelocity = Vector3.zero;

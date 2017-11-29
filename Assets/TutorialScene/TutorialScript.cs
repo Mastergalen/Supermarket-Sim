@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class TutorialScript : MonoBehaviour
 {
     public GameObject[] teleportAreas = new GameObject[5];
+    public GameObject bellyPortal;
 
     private GameObject portal;
     private GameObject throwable;
@@ -18,10 +19,10 @@ public class TutorialScript : MonoBehaviour
     private Animator anim;
     private Vector3 robotTarget = new Vector3(-5.48f, 0, 0);
     private int tutorialPart = 0;
+    private CheckoutPortal portalScript;
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
-    private Hand hand;
 
     void Start()
     {
@@ -46,19 +47,46 @@ public class TutorialScript : MonoBehaviour
                 if (touchpad.x > 0.7f)
                 {
                     HideButtonHint(touchpadButton);
+                    // You have to get the full path every time
+                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire using the trigger! Try to hit the checkout.";
                     ShowButtonHint(triggerButton, "Pull to shoot portal");
                 }
             }
 
+            //checking for portal gun has been shot
+            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 2))
+            {
+                robotTarget = new Vector3(3.3f, 0, 4.4f);
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Let's learn to grab objects! Teleport here!";
+            }
+
+            //checking for grab mode change
             if (hand.controller.GetPressDown(touchpadButton) && (tutorialPart == 3))
             {
                 Vector2 touchpad = hand.controller.GetAxis();
                 if (touchpad.y > 0.7f)
                 {
                     HideButtonHint(touchpadButton);
+                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release by letting go. Try throwing something!";
                     ShowButtonHint(triggerButton, "Hold trigger to grab an object");
                 }
             }
+
+            //checking for portal gun has been shot
+            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 3))
+            {
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Look at your belly! Try dropping an object in, and look at the portal you shot on the checkout.";
+            }
+
+            //check for collision between a gameobject and belly portal
+            portalScript = (CheckoutPortal)bellyPortal.GetComponent(typeof(CheckoutPortal));
+            if (portalScript.Checker == true)
+            {
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Teleport to the portal, then walk through it to go to the supermarket!";
+                // Proceed to supermarket
+                ActivatePortal();
+            }
+            portalScript.Checker = false;
         }
 
 
@@ -68,7 +96,7 @@ public class TutorialScript : MonoBehaviour
             // 0 for still, 1 for walk, 2 for run, 3 for jump
             anim.SetInteger("Speed", 1);
             robot.transform.rotation = Quaternion.Slerp(robot.transform.rotation, Quaternion.LookRotation(robotTarget - robot.transform.position), Time.deltaTime * 3);
-            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.025f);
+            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.05f);
         }
         // Robot stop and face player
         else
@@ -85,6 +113,12 @@ public class TutorialScript : MonoBehaviour
         {
             teleportAreas[tutorialPart].SetActive(false);
 
+            if(tutorialPart == 0)
+            {
+                robotTarget = new Vector3(-7.5f, 0, 4.4f);
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now teleport to the next point!";
+            }
+
             // Portal gun tutorial
             if (tutorialPart == 1)
             {
@@ -99,10 +133,11 @@ public class TutorialScript : MonoBehaviour
                 ThrowableTutorial();
             }
             // Minimap tutorial
+            /*
             if (tutorialPart == 3)
             {
                 MinimapTutorial();
-            }
+            }*/
             tutorialPart++;
             SetTargetTeleport();
         }
@@ -144,7 +179,6 @@ public class TutorialScript : MonoBehaviour
             {
                 teleportAreas[i].SetActive(true);
                 gameObject.GetComponent<BoxCollider>().center = new Vector3(teleportAreas[i].transform.position.x, 1.5f, teleportAreas[i].transform.position.z);
-                robotTarget = new Vector3((teleportAreas[i].transform.position.x - 1.5f), 0, teleportAreas[i].transform.position.z);
             }
             else
             {
@@ -157,7 +191,7 @@ public class TutorialScript : MonoBehaviour
     private void PortalGunTutorial()
     {
         ShowButtonHint(touchpadButton, "Press RIGHT on touchpad to change to Portal Gun Mode");
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select the portal gun by pressing left on the pad. Fire the portal gun with the trigger.";
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select portal gun by pressing right on the touchpad.";
     }
 
     // TODO Throwables tutorial
@@ -167,18 +201,16 @@ public class TutorialScript : MonoBehaviour
         HideButtonHint(triggerButton);
         ShowButtonHint(touchpadButton, "Press UP on touchpad to change to Grab Mode");
 
-        ActivatePortal();
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release objects by letting go of the trigger. Try throwing something!";
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select grab mode by pressing up on the touchpad.";
+        
     }
 
     // TODO Minimap tutorials
+    /*
     private void MinimapTutorial()
     {
         GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Bring up the map by holding the bottom of the pad.";
-
-        // Proceed to supermarket
-        ActivatePortal();
-    }
+    }*/
 
     // Render portal
     IEnumerator PortalEffect(float time)
