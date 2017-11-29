@@ -32,12 +32,7 @@ public class MinimapController : MonoBehaviour {
     {
         if (!scannedProductCodes.Contains(productCode))
         {
-            Debug.Log("Adding " + productCode);
-
             List<GameObject> results = FindInScene(productCode);
-
-            Debug.Log(results);
-            Debug.Log("Found " + results.Count + " game objects");
 
             foreach(GameObject obj in results)
             {

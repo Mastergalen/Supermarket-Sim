@@ -114,7 +114,7 @@ public class SupermarketTutorial : MonoBehaviour {
         textComponent.text = "Your task: collect 2 of each of these items. Use the map to find them. Put them in your belly and they will go to the checkout! Good luck!";
         tutorialPart = "robotFly";
 
-        Invoke("RobotFlyAway", 5);
+        Invoke("RobotFlyAway", 15);
     }
 
     void RobotFlyAway()
