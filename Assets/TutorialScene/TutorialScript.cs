@@ -266,6 +266,12 @@ public class TutorialScript : MonoBehaviour
         if (!audioSource.isPlaying)
         {
             audioSource.clip = audioRobot[audioNumber];
+
+            if(audioSource.clip == null)
+            {
+                Debug.LogError("Audio clip is null");
+            }
+
             audioSource.Play();
         }
     }
