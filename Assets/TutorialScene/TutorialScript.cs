@@ -63,6 +63,7 @@ public class TutorialScript : MonoBehaviour
             {
                 robotTarget = new Vector3(3.3f, 0, 4.4f);
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Let's learn to grab objects! Teleport here!";
+                RobotSpeak(3);
             }
 
             //checking for grab mode change
@@ -73,6 +74,7 @@ public class TutorialScript : MonoBehaviour
                 {
                     HideButtonHint(touchpadButton);
                     GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release by letting go. Try throwing something!";
+                    RobotSpeak(4);
                     ShowButtonHint(triggerButton, "Hold trigger to grab an object");
                 }
             }
@@ -81,6 +83,7 @@ public class TutorialScript : MonoBehaviour
             if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 3))
             {
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Look at your belly! Try dropping an object in, and look at the portal you shot on the checkout.";
+                RobotSpeak(5);
             }
 
             //check for collision between a gameobject and belly portal
@@ -88,6 +91,7 @@ public class TutorialScript : MonoBehaviour
             if (portalScript.CheckObjectTeleported == true)
             {
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Teleport to the portal, then walk through it to go to the supermarket!";
+                RobotSpeak(6);
                 // Proceed to supermarket
                 ActivatePortal();
             }
@@ -120,15 +124,15 @@ public class TutorialScript : MonoBehaviour
 
             if(tutorialPart == 0)
             {
-                /*robotTarget = new Vector3(-7.5f, 0, 4.4f);
-                if (!audioSource.isPlaying)
+                robotTarget = new Vector3(-7.5f, 0, 4.4f);
+                /*if (!audioSource.isPlaying)
                 {
                     audioSource.clip = audioRobot[tutorialPart];
                     audioSource.Play();
                 }*/
                 
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now teleport to the next point!";
-                RobotSpeak();
+                RobotSpeak(0);
             }
 
             // Portal gun tutorial
@@ -200,6 +204,7 @@ public class TutorialScript : MonoBehaviour
     {
         ShowButtonHint(touchpadButton, "Press RIGHT on touchpad to change to Portal Gun Mode");
         GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select portal gun by pressing right on the touchpad.";
+        RobotSpeak(1);
     }
 
     // TODO Throwables tutorial
@@ -210,7 +215,7 @@ public class TutorialScript : MonoBehaviour
         ShowButtonHint(touchpadButton, "Press UP on touchpad to change to Grab Mode");
 
         GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select grab mode by pressing up on the touchpad.";
-        
+        RobotSpeak(2);
     }
 
     // Render portal
@@ -257,12 +262,11 @@ public class TutorialScript : MonoBehaviour
         }
     }
 
-    private void RobotSpeak()
-    {
- 
+    private void RobotSpeak(int audioNumber)
+    { 
         if (!audioSource.isPlaying)
         {
-            audioSource.clip = audioRobot[tutorialPart];
+            audioSource.clip = audioRobot[audioNumber];
             audioSource.Play();
         }
     }
