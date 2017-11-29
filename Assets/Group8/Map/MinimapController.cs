@@ -11,10 +11,21 @@ public class MinimapController : MonoBehaviour {
     private float markerSpawnHeight = 8.15f;
     private int mapOnlyLayerId = 12; // This layer won't be rendered to the VRCamera
     private GameObject Notifications;
+    private Dictionary<GameObject, GameObject> productMarkerDict = new Dictionary<GameObject, GameObject>();
 
     void Start()
     {
+        if(MapMarkerPrefab == null)
+        {
+            Debug.LogError("Map marker prefab not set");
+        }
+
         Notifications = GameObject.FindGameObjectWithTag("HUD");
+    }
+
+    void Update()
+    {
+        UpdateMarkerPositions();
     }
 
     public void AddProductCode(int productCode)
@@ -30,7 +41,7 @@ public class MinimapController : MonoBehaviour {
 
             foreach(GameObject obj in results)
             {
-                AddMapMarker(obj);
+                CreateMapMarker(obj);
             }
 
             Notifications.GetComponent<Notifications>().DisplayMessage("Added scanned items to minimap");
@@ -56,12 +67,28 @@ public class MinimapController : MonoBehaviour {
         return results;
     }
 
-    private void AddMapMarker(GameObject product)
+    private void CreateMapMarker(GameObject product)
     {
         GameObject marker = Instantiate(MapMarkerPrefab, product.transform);
+        productMarkerDict.Add(product, marker);
         marker.layer = mapOnlyLayerId;
+    }
 
-        // Position marker above the roof
-        marker.transform.position = new Vector3(product.transform.position.x, markerSpawnHeight, product.transform.position.z);
+    /**
+     * Position marker above roof
+     */
+    private void UpdateMarkerPositions()
+    {
+        foreach (KeyValuePair<GameObject, GameObject> entry in productMarkerDict)
+        {
+            GameObject product = entry.Key;
+            GameObject marker = entry.Value;
+
+            marker.transform.position = new Vector3(
+                product.transform.position.x,
+                markerSpawnHeight,
+                product.transform.position.z
+            );
+        }
     }
 }
