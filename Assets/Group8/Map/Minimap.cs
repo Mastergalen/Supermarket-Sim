@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Valve.VR.InteractionSystem;
 
 public class Minimap : MonoBehaviour {
@@ -42,6 +44,14 @@ public class Minimap : MonoBehaviour {
 
     public void CreateMinimap()
     {
+        Scene scene = SceneManager.GetActiveScene();
+
+        if(scene.name != "Supermarket_01")
+        {
+            Debug.Log("Scene was not Supermarket, not showing minimap");
+            return;
+        }
+
         Debug.Log("Creating minimap");
 
         Destroy(minimapInstance); // Ensure previous instance was destroyed
