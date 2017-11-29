@@ -517,16 +517,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74af7b6fb64e91545891bb45a33408c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioRobot:
-  - {fileID: 8300000, guid: 7de7a94450eec3e40818907f27afe705, type: 3}
-  - {fileID: 8300000, guid: cf7cf507bbbb37749aa11e3977f491db, type: 3}
-  - {fileID: 0}
-  - {fileID: 8300000, guid: e9b8fff086826cc4ab355246d225fcde, type: 3}
-  - {fileID: 8300000, guid: 4fad7146292a34b498a4442c14da9743, type: 3}
-  - {fileID: 8300000, guid: e40851781f6f7d949b4f944be1db29ea, type: 3}
-  - {fileID: 8300000, guid: 17b1e58d050a55640988c7f0239220eb, type: 3}
-  - {fileID: 8300000, guid: 83f60c8ae8e160e44a594a244a5c3b79, type: 3}
-  - {fileID: 8300000, guid: be79b7ded74ccd941bd8bc5fd119afb3, type: 3}
+  clips:
+    GoodJob: {fileID: 8300000, guid: 7de7a94450eec3e40818907f27afe705, type: 3}
+    ChangeToPortalGunMode: {fileID: 8300000, guid: cf7cf507bbbb37749aa11e3977f491db,
+      type: 3}
+    ShootPortal: {fileID: 8300000, guid: 7089239bf880326429e353aee77d5980, type: 3}
+    ShowShoppingList: {fileID: 8300000, guid: e9b8fff086826cc4ab355246d225fcde, type: 3}
+    NowLetsScan: {fileID: 8300000, guid: 4fad7146292a34b498a4442c14da9743, type: 3}
+    SelectScanner: {fileID: 8300000, guid: e40851781f6f7d949b4f944be1db29ea, type: 3}
+    HoldToScan: {fileID: 8300000, guid: 17b1e58d050a55640988c7f0239220eb, type: 3}
+    OpenMap: {fileID: 8300000, guid: 83f60c8ae8e160e44a594a244a5c3b79, type: 3}
+    GreatTheItems: {fileID: 8300000, guid: be79b7ded74ccd941bd8bc5fd119afb3, type: 3}
+    YourTask: {fileID: 8300000, guid: fe361128b00d6e44a853ab35d21eb7e9, type: 3}
+    ByeBye: {fileID: 8300000, guid: 1cebc1f14d039cd41bfafb585190277f, type: 3}
 --- !u!54 &570941263
 Rigidbody:
   m_ObjectHideFlags: 0

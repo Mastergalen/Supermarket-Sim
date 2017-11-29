@@ -149,7 +149,7 @@ public class SupermarketTutorial : MonoBehaviour {
     {
         textComponent.text = "Your task: collect 2 of each of these items. Use the map to find them. Put them in your belly and they will go to the checkout! Good luck!";
         tutorialPart = TutorialStep.YourTask;
-        //RobotSpeak(clips.YourTask);
+        RobotSpeak(clips.YourTask);
 
         Invoke("RobotFlyAway", 15);
     }
@@ -157,7 +157,7 @@ public class SupermarketTutorial : MonoBehaviour {
     void RobotFlyAway()
     {
         textComponent.text = "Bye Bye :)";
-        //RobotSpeak(clips.ByeBye);
+        RobotSpeak(clips.ByeBye);
 
         Animator animator = GetComponent<Animator>();
         animator.SetBool("Flying", true);
