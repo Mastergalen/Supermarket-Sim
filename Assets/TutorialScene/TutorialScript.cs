@@ -21,7 +21,7 @@ public class TutorialScript : MonoBehaviour
 
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
-    private Valve.VR.InteractionSystem.Hand hand;
+    private Hand hand;
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class TutorialScript : MonoBehaviour
 
         foreach (Hand hand in player.hands)
         {
-            if (hand.controller == null) return;
+            if (hand.controller == null) break;
 
             //checking for portal gun mode change
             if (hand.controller.GetPressDown(touchpadButton) && (tutorialPart == 2))
