@@ -20,6 +20,8 @@ public class Clips
     public AudioClip HoldToScan;
     public AudioClip OpenMap;
     public AudioClip GreatTheItems;
+    public AudioClip YourTask;
+    public AudioClip ByeBye;
 }
 
 public class SupermarketTutorial : MonoBehaviour {
@@ -57,6 +59,8 @@ public class SupermarketTutorial : MonoBehaviour {
         {
             if (hand.controller == null) break;
 
+            ControllerMode.Mode currentMode = hand.GetComponent<ControllerMode>().currentMode;
+
             //checking for portal gun mode change
             if (hand.controller.GetPressDown(touchpadButton) && (tutorialPart == TutorialStep.PortalGunMode))
             {
@@ -70,7 +74,7 @@ public class SupermarketTutorial : MonoBehaviour {
             }
 
             //checking for portal gun has been shot
-            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialStep.ShootPortal))
+            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialStep.ShootPortal) && (currentMode == ControllerMode.Mode.PortalGun))
             {
                 textComponent.text = "Once you are happy with the portal, hold the menu button to see your shopping list.";
                 tutorialPart = TutorialStep.ShoppingList;
@@ -102,7 +106,7 @@ public class SupermarketTutorial : MonoBehaviour {
             }
 
             //checking for after scan button press
-            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialStep.ScanItems))
+            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialStep.ScanItems) && (currentMode == ControllerMode.Mode.Scanner))
             {
                 textComponent.text = "Open the map by holding down on the touchpad.";
                 tutorialPart = TutorialStep.MinimapMode;
@@ -153,6 +157,7 @@ public class SupermarketTutorial : MonoBehaviour {
     void RobotFlyAway()
     {
         textComponent.text = "Bye Bye :)";
+        //RobotSpeak(clips.ByeBye);
 
         Animator animator = GetComponent<Animator>();
         animator.SetBool("Flying", true);
