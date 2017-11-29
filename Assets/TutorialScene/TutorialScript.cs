@@ -47,7 +47,8 @@ public class TutorialScript : MonoBehaviour
                 if (touchpad.x > 0.7f)
                 {
                     HideButtonHint(touchpadButton);
-                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire the portal gun with the trigger. Try shooting a portal now! Try to get it on the checkout :)";
+                    // You have to get the full path every time
+                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire using the trigger! Try to hit the checkout.";
                     ShowButtonHint(triggerButton, "Pull to shoot portal");
                 }
             }
@@ -55,7 +56,7 @@ public class TutorialScript : MonoBehaviour
             //checking for portal gun has been shot
             if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 2))
             {
-                robotTarget = new Vector3(2f, 0, 4.41f);
+                robotTarget = new Vector3(3.3f, 0, 4.4f);
             }
 
             //checking for grab mode change
@@ -65,7 +66,7 @@ public class TutorialScript : MonoBehaviour
                 if (touchpad.y > 0.7f)
                 {
                     HideButtonHint(touchpadButton);
-                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release objects by letting go of the trigger. Try throwing something!";
+                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release by letting go. Try throwing something!";
                     ShowButtonHint(triggerButton, "Hold trigger to grab an object");
                 }
             }
@@ -73,8 +74,7 @@ public class TutorialScript : MonoBehaviour
             //checking for portal gun has been shot
             if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 3))
             {
-                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now look at your belly, and try dropping an object into it! Hint: Look at the portal you shot previously :P";
-                robotTarget = new Vector3(2f, 0, 4.41f);
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Look at your belly! Try dropping an object in, and look at the portal you shot on the checkout.";
             }
 
             //check for collision between a gameobject and belly portal
@@ -93,9 +93,9 @@ public class TutorialScript : MonoBehaviour
         if (robot.transform.position != robotTarget)
         {
             // 0 for still, 1 for walk, 2 for run, 3 for jump
-            anim.SetInteger("Speed", 1);
+            anim.SetInteger("Speed", 2);
             robot.transform.rotation = Quaternion.Slerp(robot.transform.rotation, Quaternion.LookRotation(robotTarget - robot.transform.position), Time.deltaTime * 3);
-            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.025f);
+            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.01f);
         }
         // Robot stop and face player
         else
@@ -114,7 +114,7 @@ public class TutorialScript : MonoBehaviour
 
             if(tutorialPart == 0)
             {
-                robotTarget = new Vector3(-5.41f, 0, 4.41f);
+                robotTarget = new Vector3(-7.5f, 0, 4.4f);
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Now teleport to the next point!";
             }
 
@@ -190,7 +190,7 @@ public class TutorialScript : MonoBehaviour
     private void PortalGunTutorial()
     {
         ShowButtonHint(touchpadButton, "Press RIGHT on touchpad to change to Portal Gun Mode");
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select the portal gun by pressing right on the touchpad.";
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select portal gun by pressing right on the touchpad.";
     }
 
     // TODO Throwables tutorial
@@ -200,7 +200,7 @@ public class TutorialScript : MonoBehaviour
         HideButtonHint(triggerButton);
         ShowButtonHint(touchpadButton, "Press UP on touchpad to change to Grab Mode");
 
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Change to grab mode by pressing up on the touchpad.";
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select grab mode by pressing up on the touchpad.";
         
     }
 
