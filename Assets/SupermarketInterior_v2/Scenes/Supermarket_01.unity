@@ -367,7 +367,40 @@ GameObject:
   m_PrefabParentObject: {fileID: 1920755787959810, guid: d3525a7c34023b94789d7b0f4d6939ad,
     type: 2}
   m_PrefabInternal: {fileID: 1971787751}
---- !u!43 &520581395
+--- !u!21 &426206674
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites/Default
+  m_Shader: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _EnableExternalAlpha: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!43 &520616379
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -582,6 +615,21 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 422752, guid: 11561786059d13346b9af9be81fcbed2, type: 2}
   m_PrefabInternal: {fileID: 554579292}
+--- !u!1 &570941261 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 122752, guid: 11561786059d13346b9af9be81fcbed2, type: 2}
+  m_PrefabInternal: {fileID: 554579292}
+--- !u!114 &570941263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 570941261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74af7b6fb64e91545891bb45a33408c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &849312144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,7 +1135,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1881583261}
   m_LocalRotation: {x: 0.000000029569492, y: 0.999962, z: -0.008726507, w: 0.000000059604645}
-  m_LocalPosition: {x: -7, y: 18, z: -2}
+  m_LocalPosition: {x: -7, y: 21.44, z: -2.06}
   m_LocalScale: {x: 8, y: 7.336739, z: 31.710726}
   m_Children:
   - {fileID: 849312145}
@@ -1096,7 +1144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 1, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -7, y: 18}
+  m_AnchoredPosition: {x: -7, y: 21.44}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1881583263
