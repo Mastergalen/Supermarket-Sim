@@ -288,7 +288,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Hello people! \nWelcome to \nsupermarket me"
+  m_Text: Hello! Teleport to me using the grip button.
 --- !u!222 &9116532
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4667,6 +4667,10 @@ Prefab:
     - target: {fileID: 422748, guid: 11561786059d13346b9af9be81fcbed2, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11422754, guid: 11561786059d13346b9af9be81fcbed2, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11561786059d13346b9af9be81fcbed2, type: 2}
