@@ -82,7 +82,7 @@ public class TutorialScript : MonoBehaviour
             portalScript = (CheckoutPortal)bellyPortal.GetComponent(typeof(CheckoutPortal));
             if (portalScript.Checker == true)
             {
-                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Walk through the portal to go to the supermarket!";
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Teleport to the portal, then walk through it to go to the supermarket!";
                 // Proceed to supermarket
                 ActivatePortal();
             }
