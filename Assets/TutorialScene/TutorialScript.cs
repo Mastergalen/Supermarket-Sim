@@ -57,6 +57,7 @@ public class TutorialScript : MonoBehaviour
             if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == 2))
             {
                 robotTarget = new Vector3(3.3f, 0, 4.4f);
+                GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Let's learn to grab objects! Teleport here!";
             }
 
             //checking for grab mode change
@@ -93,9 +94,9 @@ public class TutorialScript : MonoBehaviour
         if (robot.transform.position != robotTarget)
         {
             // 0 for still, 1 for walk, 2 for run, 3 for jump
-            anim.SetInteger("Speed", 2);
+            anim.SetInteger("Speed", 1);
             robot.transform.rotation = Quaternion.Slerp(robot.transform.rotation, Quaternion.LookRotation(robotTarget - robot.transform.position), Time.deltaTime * 3);
-            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.01f);
+            robot.transform.position = Vector3.MoveTowards(robot.transform.position, robotTarget, 0.05f);
         }
         // Robot stop and face player
         else
