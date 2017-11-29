@@ -46,16 +46,19 @@ public class TutorialScript : MonoBehaviour
                 if (touchpad.x > 0.7f)
                 {
                     HideButtonHint(touchpadButton);
+                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Fire the portal gun with the trigger.";
                     ShowButtonHint(triggerButton, "Pull to shoot portal");
                 }
             }
 
+            //checking for grab mode change
             if (hand.controller.GetPressDown(touchpadButton) && (tutorialPart == 3))
             {
                 Vector2 touchpad = hand.controller.GetAxis();
                 if (touchpad.y > 0.7f)
                 {
                     HideButtonHint(touchpadButton);
+                    GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release objects by letting go of the trigger. Try throwing something!";
                     ShowButtonHint(triggerButton, "Hold trigger to grab an object");
                 }
             }
@@ -99,10 +102,11 @@ public class TutorialScript : MonoBehaviour
                 ThrowableTutorial();
             }
             // Minimap tutorial
+            /*
             if (tutorialPart == 3)
             {
                 MinimapTutorial();
-            }
+            }*/
             tutorialPart++;
             SetTargetTeleport();
         }
@@ -157,7 +161,7 @@ public class TutorialScript : MonoBehaviour
     private void PortalGunTutorial()
     {
         ShowButtonHint(touchpadButton, "Press RIGHT on touchpad to change to Portal Gun Mode");
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select the portal gun by pressing left on the pad. Fire the portal gun with the trigger.";
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select the portal gun by pressing right on the touchpad.";
     }
 
     // TODO Throwables tutorial
@@ -167,18 +171,18 @@ public class TutorialScript : MonoBehaviour
         HideButtonHint(triggerButton);
         ShowButtonHint(touchpadButton, "Press UP on touchpad to change to Grab Mode");
 
-        ActivatePortal();
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Grab objects by holding the trigger. Release objects by letting go of the trigger. Try throwing something!";
-    }
-
-    // TODO Minimap tutorials
-    private void MinimapTutorial()
-    {
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Bring up the map by holding the bottom of the pad.";
-
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Change to grab mode by pressing up on the touchpad.";
+        
         // Proceed to supermarket
         ActivatePortal();
     }
+
+    // TODO Minimap tutorials
+    /*
+    private void MinimapTutorial()
+    {
+        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Bring up the map by holding the bottom of the pad.";
+    }*/
 
     // Render portal
     IEnumerator PortalEffect(float time)
