@@ -22,11 +22,15 @@ public class Pickup : MonoBehaviour {
 
         if (hand.controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
         {
-			UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
             if (collidingObject)
             {
                 Grab(collidingObject);
             }
+        }
+
+        if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
+        {
+            UCL.COMPGV07.Group8.CustomLogger.LogKeyDown();
         }
 
         if (hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
@@ -55,16 +59,21 @@ public class Pickup : MonoBehaviour {
 
     private void SetCollidingObject(Collider c)
     {
-        if(collidingObject || !c.GetComponent<Rigidbody>())
+        if (hand.controller == null) return;
+
+        if (hand.controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
         {
-            return;
+            if (collidingObject || !c.GetComponent<Rigidbody>())
+            {
+                return;
+            }
+
+            int layer = c.gameObject.layer;
+
+            if (layer != LayerMask.NameToLayer("Grabbable")) return;
+
+            collidingObject = c.gameObject;
         }
-
-        int layer = c.gameObject.layer;
-
-        if (layer != LayerMask.NameToLayer("Grabbable")) return;
-
-        collidingObject = c.gameObject;
     }
 
     void Grab(GameObject objectToGrab) {
