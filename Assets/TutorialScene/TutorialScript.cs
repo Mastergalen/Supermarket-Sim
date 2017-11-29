@@ -80,13 +80,13 @@ public class TutorialScript : MonoBehaviour
 
             //check for collision between a gameobject and belly portal
             portalScript = (CheckoutPortal)bellyPortal.GetComponent(typeof(CheckoutPortal));
-            if (portalScript.Checker == true)
+            if (portalScript.CheckObjectTeleported == true)
             {
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Teleport to the portal, then walk through it to go to the supermarket!";
                 // Proceed to supermarket
                 ActivatePortal();
             }
-            portalScript.Checker = false;
+            portalScript.CheckObjectTeleported = false;
         }
 
 
@@ -132,12 +132,7 @@ public class TutorialScript : MonoBehaviour
                 throwable.SetActive(true);
                 ThrowableTutorial();
             }
-            // Minimap tutorial
-            /*
-            if (tutorialPart == 3)
-            {
-                MinimapTutorial();
-            }*/
+
             tutorialPart++;
             SetTargetTeleport();
             teleportAreas[3].SetActive(false);
@@ -205,13 +200,6 @@ public class TutorialScript : MonoBehaviour
         GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Select grab mode by pressing up on the touchpad.";
         
     }
-
-    // TODO Minimap tutorials
-    /*
-    private void MinimapTutorial()
-    {
-        GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Bring up the map by holding the bottom of the pad.";
-    }*/
 
     // Render portal
     IEnumerator PortalEffect(float time)

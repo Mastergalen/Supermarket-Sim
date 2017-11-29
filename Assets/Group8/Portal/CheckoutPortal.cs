@@ -11,17 +11,17 @@ public class CheckoutPortal : MonoBehaviour {
     public float portalOutSpeed = 3.0f;
     public float spawnOffset = 0.4f;
 
-    private bool check;
+    private bool objectTeleported;
 
-    public bool Checker
+    public bool CheckObjectTeleported
     {
         get
         {
-            return check;
+            return objectTeleported;
         }
         set
         {
-            check = value;
+            objectTeleported = value;
         }
     }
 
@@ -76,7 +76,7 @@ public class CheckoutPortal : MonoBehaviour {
         Rigidbody rb = collidingObject.GetComponent<Rigidbody>();
 
         collidingObject.transform.position = targetPortal.transform.position + (targetPortalForward * spawnOffset);
-        check = true;
+        objectTeleported = true;
 
         rb.velocity = targetPortalForward * portalOutSpeed;
         rb.angularVelocity = Vector3.zero;
