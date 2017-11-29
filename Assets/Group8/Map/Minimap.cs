@@ -26,12 +26,7 @@ public class Minimap : MonoBehaviour {
 
         if (hand.controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            Vector2 touchpad = hand.controller.GetAxis();
-
-            if (touchpad.y < -0.7f)
-            {
-                Destroy(minimapInstance);
-            }
+            Destroy(minimapInstance);
         }
     }
 
