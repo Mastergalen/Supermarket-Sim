@@ -153,7 +153,7 @@ public class TutorialScript : MonoBehaviour
             area.SetActive(false);
         }
 
-        portal = GameObject.Find("Portal_01");
+        portal = GameObject.Find("Portal");
         portal.SetActive(false);
 
         throwable = GameObject.Find("Throwables");
