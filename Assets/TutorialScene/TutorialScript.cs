@@ -70,6 +70,8 @@ public class TutorialScript : MonoBehaviour
         {
             if (hand.controller == null) break;
 
+            ControllerMode.Mode currentMode = hand.GetComponent<ControllerMode>().currentMode;
+
             //checking for portal gun mode change
             if (hand.controller.GetPressDown(touchpadButton) && (tutorialPart == TutorialPart.PortalGunMode))
             {
@@ -89,7 +91,7 @@ public class TutorialScript : MonoBehaviour
             }
 
             //checking for portal gun has been shot
-            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialPart.PortalGunShoot))
+            if (hand.controller.GetPressDown(triggerButton) && currentMode == ControllerMode.Mode.PortalGun && (tutorialPart == TutorialPart.PortalGunShoot))
             {
                 robotTarget = new Vector3(3.3f, 0, 4.4f);
                 teleportAreas[2].SetActive(true);
@@ -117,7 +119,7 @@ public class TutorialScript : MonoBehaviour
             }
 
             // Belly portal
-            if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialPart.Grab))
+            if (hand.controller.GetPressDown(triggerButton) && currentMode == ControllerMode.Mode.Grab && (tutorialPart == TutorialPart.Grab))
             {
                 GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>().text = "Look at your belly! Try dropping an object in, and look at the portal you shot on the checkout.";
                 RobotSpeak(clips.LookAtBelly);
