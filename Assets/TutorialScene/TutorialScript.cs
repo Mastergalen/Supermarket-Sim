@@ -140,6 +140,7 @@ public class TutorialScript : MonoBehaviour
             }*/
             tutorialPart++;
             SetTargetTeleport();
+            teleportAreas[3].SetActive(false);
         }
     }
 
@@ -216,7 +217,7 @@ public class TutorialScript : MonoBehaviour
     IEnumerator PortalEffect(float time)
     {
         Vector3 originalScale = portal.transform.localScale;
-        Vector3 destinationScale = new Vector3(0.14f, 0.14f, 0.5f);
+        Vector3 destinationScale = new Vector3(2f, 2f, 1f);
         float currentTime = 0.0f;
 
         do
@@ -237,6 +238,7 @@ public class TutorialScript : MonoBehaviour
         portal.SetActive(true);
 
         StartCoroutine(PortalEffect(1.5f));
+        teleportAreas[3].SetActive(true);
     }
 
     private void ShowButtonHint(EVRButtonId button, string buttonText)

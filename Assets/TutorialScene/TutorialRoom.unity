@@ -2105,7 +2105,7 @@ MonoBehaviour:
   - {fileID: 1629565423}
   - {fileID: 553553553}
   - {fileID: 492562078}
-  bellyPortal: {fileID: 0}
+  bellyPortal: {fileID: 1969033637}
 --- !u!1 &802859140
 GameObject:
   m_ObjectHideFlags: 0
@@ -4894,6 +4894,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1964847907}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1969033637 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1244374333637054, guid: 114626d615b401343af02367dc012729,
+    type: 2}
+  m_PrefabInternal: {fileID: 640575124}
 --- !u!1001 &2040896381
 Prefab:
   m_ObjectHideFlags: 0

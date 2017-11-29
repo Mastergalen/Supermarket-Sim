@@ -15,9 +15,6 @@ public class GoToSupermarket : MonoBehaviour
         if (collisionInfo.GetComponent<Collider>().name == "HeadCollider")
         {
             SteamVR_LoadLevel.Begin("Supermarket_01");
-            //SceneManager.LoadScene("Supermarket_01");
-            //LoadLevel("Supermarket_01");
-
         }
     }
 
