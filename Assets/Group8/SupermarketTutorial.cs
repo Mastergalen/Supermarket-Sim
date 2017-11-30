@@ -49,7 +49,7 @@ public class SupermarketTutorial : MonoBehaviour {
         RobotSpeak(clips.GoodJob);
 
         tutorialPart = TutorialStep.PortalGunMode;
-        Invoke("PortalGunMode", 2);
+        Invoke("PortalGunMode", 2);	
     }
 
     // Update is called once per frame
