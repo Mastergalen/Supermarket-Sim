@@ -94,7 +94,6 @@ public class Pickup : MonoBehaviour {
     {
         Debug.Log("Releasing object");
         Rigidbody rbObject = objectInHand.GetComponent<Rigidbody>();
-        Rigidbody rbController = gameObject.GetComponent<Rigidbody>();
 
         rbObject.velocity = hand.controller.velocity;
         rbObject.angularVelocity = hand.controller.angularVelocity;

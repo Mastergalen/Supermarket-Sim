@@ -70,7 +70,10 @@ namespace UCL.COMPGV07{
             // spawn items
             foreach (var spawnable in configuration.Spawnable)
             {
-                Instantiate(catalogue[spawnable.Product], spawnable.Position, spawnable.Rotation);
+                GameObject product = Instantiate(catalogue[spawnable.Product], spawnable.Position, spawnable.Rotation);
+				product.layer = 0; // Make it not grabbable
+				product.GetComponent<Rigidbody>().useGravity = false;
+				Destroy(product.GetComponent<Collider>()); // Disable collisions
             }
 
             // order
