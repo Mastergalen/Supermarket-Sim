@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class PortalGun : MonoBehaviour {
 
     public GameObject bellyPortal;
@@ -11,13 +13,16 @@ public class PortalGun : MonoBehaviour {
 
 	private Valve.VR.InteractionSystem.Hand hand;
 	private GameObject Notifications;
+	private AudioSource audioSource;
 
 	void Start() {
 		hand = gameObject.GetComponent<Valve.VR.InteractionSystem.Hand>();
 		Notifications = GameObject.FindGameObjectWithTag("HUD");
+		audioSource = GetComponent<AudioSource>();
 	}
 	
-	void Update() {
+	void Update()
+	{
         if (hand.controller == null) return;
 
         ControllerMode.Mode currentMode = GetComponent<ControllerMode>().currentMode;
@@ -49,6 +54,7 @@ public class PortalGun : MonoBehaviour {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<Rigidbody>().velocity = transform.forward * projectileSpeed;
         projectile.GetComponent<PortalProjectile>().bellyPortal = bellyPortal;
+		audioSource.Play();
 
         Destroy(projectile, 10.0f);
     }
