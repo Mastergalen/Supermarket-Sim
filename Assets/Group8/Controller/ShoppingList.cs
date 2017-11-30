@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using UCL.COMPGV07;
 using System.Collections.Generic;
 
@@ -49,21 +48,19 @@ public class ShoppingList : MonoBehaviour
                             gameObject.transform.position + new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f),
                             Quaternion.identity
                         );
-                        Destroy(product.GetComponent<BoxCollider>());
-                        Destroy(product.GetComponent<CapsuleCollider>());
+                        Destroy(product.GetComponent<Collider>());
                         Destroy(product.GetComponent<Rigidbody>());
 
                         // Attach items to controller position
                         product.transform.parent = transform;
                         product.transform.localRotation = Quaternion.Euler(57, 0, 0);
-                        product.transform.localPosition = new Vector3((i * 0.05f) - ((numberOfItems * 0.05f) / 2) + 0.025f, 0, 0.065f);
-                        product.transform.localScale -= new Vector3(0.9f, 0.9f, 0.9f);
+                        product.transform.localPosition = new Vector3((i * 0.125f) - ((numberOfItems * 0.155f) / 2) + 0.125f, 0, 0.065f);
+                        product.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
 
                         // Store spawned product
                         shoppingList[i] = product;
 
                         i++;
-
                     }
                 }
             }
