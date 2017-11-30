@@ -694,7 +694,7 @@ MonoBehaviour:
     HoldToScan: {fileID: 8300000, guid: 17b1e58d050a55640988c7f0239220eb, type: 3}
     OpenMap: {fileID: 8300000, guid: 83f60c8ae8e160e44a594a244a5c3b79, type: 3}
     GreatTheItems: {fileID: 8300000, guid: be79b7ded74ccd941bd8bc5fd119afb3, type: 3}
-    YourTask: {fileID: 8300000, guid: fe361128b00d6e44a853ab35d21eb7e9, type: 3}
+    YourTask: {fileID: 8300000, guid: e3d197569a9a6994c901bcc833c019b1, type: 3}
     ByeBye: {fileID: 8300000, guid: 1cebc1f14d039cd41bfafb585190277f, type: 3}
 --- !u!54 &570941263
 Rigidbody:
@@ -778,7 +778,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
