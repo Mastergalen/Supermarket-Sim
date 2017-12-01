@@ -72,8 +72,7 @@ namespace UCL.COMPGV07{
             {
                 GameObject product = Instantiate(catalogue[spawnable.Product], spawnable.Position, spawnable.Rotation);
 				product.layer = 0; // Make it not grabbable
-				product.GetComponent<Rigidbody>().useGravity = false;
-				Destroy(product.GetComponent<Collider>()); // Disable collisions
+                Destroy(product.GetComponent<Rigidbody>());
             }
 
             // order

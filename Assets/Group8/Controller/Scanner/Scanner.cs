@@ -16,12 +16,15 @@ public class Scanner : MonoBehaviour {
     private bool isScanning = false;
 	private Bounds scanningAreaBounds;
 	private GameObject Notifications;
+    private MinimapController minimapController;
     
     void Start () {
         hand = Controller.GetComponent<Valve.VR.InteractionSystem.Hand>();
 		Notifications = GameObject.FindGameObjectWithTag("HUD");
+        minimapController = Player.GetComponent<MinimapController>();
 
-		if (ScanningArea == null)
+
+        if (ScanningArea == null)
 		{
 			Debug.LogError("Scanning area not set");
 		}
@@ -31,7 +34,12 @@ public class Scanner : MonoBehaviour {
 			Debug.LogError("Player HUD not set");
 		}
 
-		scanningAreaBounds = ScanningArea.GetComponent<Renderer>().bounds;
+        if (minimapController == null)
+        {
+            Debug.LogError("Minimap controller not set");
+        }
+
+        scanningAreaBounds = ScanningArea.GetComponent<Renderer>().bounds;
     }
 	
 	void Update () {
@@ -70,12 +78,12 @@ public class Scanner : MonoBehaviour {
         if (currentMode != ControllerMode.Mode.Scanner) return;
         if (!isScanning) return;
 
-        int layer = other.gameObject.layer;
+        ProductCode pc = other.gameObject.GetComponent<ProductCode>();
 
-        if (layer != LayerMask.NameToLayer("Grabbable")) return;
+        if (pc == null) return;
 
-        int productCode = other.gameObject.GetComponent<ProductCode>().Code;
+        int productCode = pc.Code;
 
-        Player.GetComponent<MinimapController>().AddProductCode(productCode);
+        minimapController.AddProductCode(productCode);
     }
 }
