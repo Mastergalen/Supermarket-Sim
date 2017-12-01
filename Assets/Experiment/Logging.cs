@@ -153,8 +153,11 @@ namespace UCL.COMPGV07
 
         void OnApplicationQuit()
         {
-            trial.itemsToCollect = GetComponent<Experiment>().ItemsToCollect;
-            trial.itemsCollected = GetComponent<Experiment>().ItemsCollected;
+            GameObject checkout = GameObject.Find("Checkout");
+            Experiment experiment = checkout.GetComponent<Experiment>();
+
+            trial.itemsToCollect = experiment.ItemsToCollect;
+            trial.itemsCollected = experiment.GetComponent<Experiment>().ItemsCollected;
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(file, trial);
             file.Close();   
