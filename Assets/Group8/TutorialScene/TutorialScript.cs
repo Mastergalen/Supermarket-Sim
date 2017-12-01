@@ -133,7 +133,7 @@ public class TutorialScript : MonoBehaviour
             portalScript = (CheckoutPortal)bellyPortal.GetComponent(typeof(CheckoutPortal));
             if (tutorialPart == TutorialPart.Belly && portalScript.CheckObjectTeleported == true)
             {
-                textComponent.text = "Teleport to the portal, then walk through it to go to the supermarket!";
+                textComponent.text = "Now let's head over to the supermarket! Teleport to the portal on my left and walk through it";
                 RobotSpeak(clips.TeleportToPortal);
                 // Proceed to supermarket
                 ActivatePortal();
