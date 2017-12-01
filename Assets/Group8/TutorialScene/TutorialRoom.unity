@@ -2334,7 +2334,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2373,6 +2373,7 @@ MonoBehaviour:
     LookAtBelly: {fileID: 8300000, guid: 69adf027413e4094ea9101ca6c3d990a, type: 3}
     TeleportToPortal: {fileID: 8300000, guid: c76d42a70c863594abb1d6eab47f144b, type: 3}
     FireAway: {fileID: 8300000, guid: ba66e540137bc6b4aadca071c9c7d84d, type: 3}
+    WelcomeHello: {fileID: 8300000, guid: ebd630bf4c80f94449879b7ce9cbb7e5, type: 3}
 --- !u!1 &802859140
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class TutorialScript : MonoBehaviour
         public AudioClip LookAtBelly;
         public AudioClip TeleportToPortal;
         public AudioClip FireAway;
+        public AudioClip WelcomeHello;
     }
 
     public GameObject[] teleportAreas = new GameObject[5];
@@ -55,6 +56,7 @@ public class TutorialScript : MonoBehaviour
         anim = robot.GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 		textComponent = GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>();
+        RobotSpeak(clips.WelcomeHello);
 
         teleportAreaMap = new Dictionary<TutorialPart, GameObject>()
         {
