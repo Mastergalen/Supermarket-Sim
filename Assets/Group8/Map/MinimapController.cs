@@ -79,6 +79,8 @@ public class MinimapController : MonoBehaviour {
             GameObject product = entry.Key;
             GameObject marker = entry.Value;
 
+            if (marker == null) continue;
+
             marker.transform.position = new Vector3(
                 product.transform.position.x,
                 markerSpawnHeight,
