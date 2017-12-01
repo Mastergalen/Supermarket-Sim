@@ -70,9 +70,17 @@ namespace UCL.COMPGV07{
             // spawn items
             foreach (var spawnable in configuration.Spawnable)
             {
-                GameObject product = Instantiate(catalogue[spawnable.Product], spawnable.Position, spawnable.Rotation);
-				product.layer = 0; // Make it not grabbable
-                Destroy(product.GetComponent<Rigidbody>());
+                Instantiate(catalogue[spawnable.Product], spawnable.Position, spawnable.Rotation);
+            }
+
+            // Find spawned products on the counter
+            Collider[] colliders = Physics.OverlapSphere(new Vector3(10.214f, 1.291f, -6.248f), 1.0f);
+
+            foreach(Collider c in colliders)
+            {
+                if (c.gameObject.GetComponent<ProductCode>() == null) continue;
+                c.gameObject.layer = 0; // Make it not grabbable
+                Destroy(c.gameObject.GetComponent<Rigidbody>());
             }
 
             // order
