@@ -159,7 +159,7 @@ public class SupermarketTutorial : MonoBehaviour {
 
     void StartTaskText()
     {
-        textComponent.text = "Your task: collect 2 of each of these items. Use the map to find them. Put them in your belly and they will go to the checkout! Good luck!";
+        textComponent.text = "Your task: Collect these items and put them on the checkout. Use the map to find them. Tip: Put the items in your belly portal!";
         tutorialPart = TutorialStep.YourTask;
 
         RobotSpeak(clips.YourTask);
