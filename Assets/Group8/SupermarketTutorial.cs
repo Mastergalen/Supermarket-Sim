@@ -33,17 +33,20 @@ public class SupermarketTutorial : MonoBehaviour {
     private EVRButtonId touchpadButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     private EVRButtonId triggerButton = EVRButtonId.k_EButton_SteamVR_Trigger;
     private EVRButtonId shoppingListButton = EVRButtonId.k_EButton_ApplicationMenu;
+	private EVRButtonId gripButton = EVRButtonId.k_EButton_Grip;
 
     private Text textComponent;
     private AudioSource audioSource;
 
-    private enum TutorialStep {GoodJob, PortalGunMode, ShootPortal, ShoppingList, ScanMode, ScanItems, MinimapMode, Minimap, YourTask}
+    private enum TutorialStep {GoodJob, PortalGunMode, ShootPortal, ShoppingList, ScanMode, ScanItems, MinimapMode, Minimap, YourTask, TaskStart}
 
     // Use this for initialization
     void Start () {
         player = Player.instance;
+		audioSource = GetComponent<AudioSource>();
+
+        Teleport.instance.CancelTeleportHint();
         textComponent = GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>();
-        audioSource = GetComponent<AudioSource>();
 
         textComponent.text = "Good job!";
         RobotSpeak(clips.GoodJob);
@@ -66,8 +69,10 @@ public class SupermarketTutorial : MonoBehaviour {
                 Vector2 touchpad = hand.controller.GetAxis();
                 if (touchpad.x > 0.7f)
                 {                    
+					HideButtonHint(touchpadButton);
                     textComponent.text = "Now shoot the portal above the checkout. Try to make sure it is directly above it.";
                     tutorialPart = TutorialStep.ShootPortal;
+					ShowButtonHint(triggerButton, "Press the trigger to shoot portal");
                     RobotSpeak(clips.ShootPortal);
                 }
             }
@@ -75,6 +80,7 @@ public class SupermarketTutorial : MonoBehaviour {
             //checking for portal gun has been shot
             if (hand.controller.GetPressDown(triggerButton) && (tutorialPart == TutorialStep.ShootPortal) && (currentMode == ControllerMode.Mode.PortalGun))
             {
+				HideButtonHint(triggerButton);
                 textComponent.text = "Once you are happy with the portal, hold the menu button to see your shopping list.";
                 tutorialPart = TutorialStep.ShoppingList;
                 RobotSpeak(clips.ShowShoppingList);
@@ -127,6 +133,12 @@ public class SupermarketTutorial : MonoBehaviour {
                     Invoke("StartTaskText", 10);
                 }
             }
+
+			//checking for teleport event - turn off button hint after they teleport once
+			if (hand.controller.GetPressDown(gripButton) && (tutorialPart == TutorialStep.TaskStart))
+			{
+				HideButtonHint(gripButton);
+			}
         }
     }
 
@@ -134,6 +146,7 @@ public class SupermarketTutorial : MonoBehaviour {
     {
         textComponent.text = "Change to portal gun mode!";
         tutorialPart = TutorialStep.PortalGunMode;
+		ShowButtonHint(touchpadButton, "Press RIGHT on touchpad to change to Portal Gun Mode");
         RobotSpeak(clips.ChangeToPortalGunMode);
     }
 
@@ -148,8 +161,8 @@ public class SupermarketTutorial : MonoBehaviour {
     {
         textComponent.text = "Your task: collect 2 of each of these items. Use the map to find them. Put them in your belly and they will go to the checkout! Good luck!";
         tutorialPart = TutorialStep.YourTask;
-        RobotSpeak(clips.YourTask);
 
+        RobotSpeak(clips.YourTask);
         Invoke("RobotFlyAway", 13);
     }
 
@@ -157,6 +170,9 @@ public class SupermarketTutorial : MonoBehaviour {
     {
         textComponent.text = "Bye Bye :)";
         RobotSpeak(clips.ByeBye);
+
+		tutorialPart = TutorialStep.TaskStart;
+		ShowButtonHint (gripButton, "Teleport");
 
         Animator animator = GetComponent<Animator>();
         animator.SetBool("Flying", true);
