@@ -44,9 +44,9 @@ public class SupermarketTutorial : MonoBehaviour {
     void Start () {
         player = Player.instance;
 		audioSource = GetComponent<AudioSource>();
-        
-		HideButtonHint(gripButton);
-		textComponent = GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>();
+
+        Teleport.instance.CancelTeleportHint();
+        textComponent = GameObject.Find("RobotModel").transform.Find("BubbleSpeech/Text").GetComponent<Text>();
 
         textComponent.text = "Good job!";
         RobotSpeak(clips.GoodJob);
