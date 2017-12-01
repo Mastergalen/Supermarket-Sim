@@ -26,6 +26,8 @@ public class SupermarketTutorial : MonoBehaviour {
     }
 
     public Clips clips;
+    public GameObject portalTargetSign;
+    public GameObject checkoutSign;
 
     private Player player = null;
     private TutorialStep tutorialPart = TutorialStep.GoodJob;
@@ -42,6 +44,16 @@ public class SupermarketTutorial : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if(checkoutSign == null)
+        {
+            Debug.LogError("Checkout sign not set");
+        }
+
+        if (portalTargetSign == null)
+        {
+            Debug.LogError("Portal target sign not set");
+        }
+
         player = Player.instance;
 		audioSource = GetComponent<AudioSource>();
 
@@ -90,6 +102,7 @@ public class SupermarketTutorial : MonoBehaviour {
             //checking for shopping list button press
             if (hand.controller.GetPressDown(shoppingListButton) && (tutorialPart == TutorialStep.ShoppingList))
             {
+                portalTargetSign.SetActive(false);
                 HideButtonHint(shoppingListButton);
                 textComponent.text = "Now let's scan some items.";
                 ShowButtonHint(touchpadButton, "Press LEFT on touchpad to change to Scan Mode");
@@ -161,6 +174,8 @@ public class SupermarketTutorial : MonoBehaviour {
     {
         textComponent.text = "Your task: Collect these items and put them on the checkout. Use the map to find them. Tip: Put the items in your belly portal!";
         tutorialPart = TutorialStep.YourTask;
+
+        checkoutSign.SetActive(true);
 
         RobotSpeak(clips.YourTask);
         Invoke("RobotFlyAway", 13);
