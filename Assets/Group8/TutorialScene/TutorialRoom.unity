@@ -2362,7 +2362,7 @@ MonoBehaviour:
     LetsLearn: {fileID: 8300000, guid: 4ad68ddfb652e164a884b8f79919e501, type: 3}
     GrabObjects: {fileID: 8300000, guid: 6195c00ffd8271944922ff16bce3a14f, type: 3}
     LookAtBelly: {fileID: 8300000, guid: 69adf027413e4094ea9101ca6c3d990a, type: 3}
-    TeleportToPortal: {fileID: 8300000, guid: e0921b2ce642be346adc5c7f6cadefde, type: 3}
+    TeleportToPortal: {fileID: 8300000, guid: c76d42a70c863594abb1d6eab47f144b, type: 3}
     FireAway: {fileID: 8300000, guid: ba66e540137bc6b4aadca071c9c7d84d, type: 3}
 --- !u!1 &802859140
 GameObject:
