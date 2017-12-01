@@ -10,7 +10,7 @@ public class FlyingState : StateMachineBehaviour {
 	{
 		AudioSource audioSource = animator.gameObject.GetComponent<AudioSource> ();
 		audioSource.clip = rocket;
-        audioSource.volume = 0.8f;
+        audioSource.volume = 0.5f;
 		audioSource.Play();
 	}
 }
